@@ -35,6 +35,13 @@ typedef struct  s_mlx
 
 } t_mlx;
 
+typedef struct s_ray
+{
+	
+	float x;
+	float y;
+} t_ray;
+
 typedef struct s_data
 {
 	int		width; // row
@@ -47,14 +54,9 @@ typedef struct s_data
 	float 	angel;
 	char 	**map2d;
 	t_mlx	mlx;
-	
+	t_ray	ray;
 }   t_data;
 
-// typedef struct s_ray
-// {
-	
-// 	float	angel;
-// } t_ray;
 
 
 

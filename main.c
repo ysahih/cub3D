@@ -187,11 +187,18 @@ void click(void *inf)
 	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_LEFT))
 	{
 		info->angel = info->angel - (info->rotate_speed);
+		if(info->angel > 2 * M_PI)
+			info->angel = info->angel - 2 * M_PI;
+		if(info->angel < -2 * M_PI)
+			info->angel = info->angel + 2 * M_PI;
 	}
 	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_RIGHT))
 	{
 		info->angel = info->angel + (info->rotate_speed);
-
+		if(info->angel > 2 * M_PI)
+			info->angel = info->angel - 2 * M_PI;
+		if(info->angel < -2 * M_PI)
+			info->angel = info->angel + 2 * M_PI;
 	}
 }
 
@@ -199,10 +206,10 @@ void ft_mlx_put_block(t_data *info ,int i ,int j)
 {
 	int a = 0;
 	int b = 0;
-	while(a < 31)
+	while(a < 32)
 	{
 		b = 0;
-		while(b < 31)
+		while(b < 32)
 		{
 			if(info->map2d[i][j] == '1')
 				mlx_put_pixel(info->mlx.image, (j * 32) + a, (i * 32) + b, 0xFF00f0);
@@ -312,13 +319,27 @@ float ft_player_angel(char **map2d)
 	return 0;
 }
 
+void ray(void *inf)
+{
+	t_data *info = inf;
+	int distance;
+
+	if(info->angel > 0 && info->angel < M_PI)
+	{
+		// t_ray first_inter;
+		info->ray.y = floor(info->player_pos.y / 32) * 32 + 32;
+		distance = info->ray.y - info->player_pos.y;
+		int o = tan(info->angel) * distance;
+		// if (info->angel < M_PI /2)
+			info->ray.x = o + info->player_pos.x;
+		// else
+		// 	info->ray.x = o - info->player_pos.x;
+	}
+	printf("angel = %f \nx = %f y = %f \n",info->angel, info->ray.x, info->ray.y);
+}
+
 void display_map(t_data *info)
 {
-	int i = 0;
-	int j = 0;
-
-	int x, y;
-	int q;
 
 	info->mlx.mlx = mlx_init(1200, 1000, "test", NULL);
 	info->mlx.image = mlx_new_image(info->mlx.mlx, 1200, 1000);
@@ -327,6 +348,8 @@ void display_map(t_data *info)
 
 	mlx_loop_hook(info->mlx.mlx, click, info);
 	mlx_loop_hook(info->mlx.mlx, rerender, info);
+	mlx_loop_hook(info->mlx.mlx, ray, info);
+
 
 	mlx_loop(info->mlx.mlx);
 	mlx_terminate(info->mlx.mlx);
@@ -354,6 +377,8 @@ int main (int ac, char **av)
 	t_data	*info;
 	int		height;
 	int		width;
+	// t_ray	*ray;
+
 
     map2d = ft_read_map2d(av[1], &height, &width);
 	info = malloc(sizeof(t_data));
