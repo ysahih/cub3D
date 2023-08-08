@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
- #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
+ #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 
 #define RGB(r, g, b) (r << 16 | g << 8 | b)
@@ -23,6 +23,7 @@ typedef struct	s_pos
 {
 	float	x;
 	float	y;
+	
 } t_pos;
 typedef struct  s_mlx
 {
@@ -40,6 +41,7 @@ typedef struct s_ray
 	
 	float x;
 	float y;
+	float	angel;
 } t_ray;
 
 typedef struct s_data

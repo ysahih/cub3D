@@ -159,8 +159,14 @@ void draw_player(t_data *info, int color, int p_or_der)
 
 int wall(t_data *info, int x, int y)
 {
-	// printf("i = %d, j = %d\n", y/SIZE,x/SIZE);
-	if(info->map2d[y/SIZE][x/SIZE] == '1')
+	// printf("(i = %d, j = %d)\n", y/SIZE,x/SIZE);
+	
+	x /= SIZE;
+	y /= SIZE;
+
+	if (x >= info->width || y >= info->height || x < 0 || y < 0)
+		return (1);
+	if(info->map2d[y][x] == '1')
 		return 1;
 	return 0;
 }
@@ -186,19 +192,26 @@ void click(void *inf)
 	}
 	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_LEFT))
 	{
+		float angel;
+		angel = fmod(info->angel , (2 * M_PI));
+		if (angel < -M_PI)
+			info->angel += 2 * M_PI;
 		info->angel = info->angel - (info->rotate_speed);
-		if(info->angel > 2 * M_PI)
-			info->angel = info->angel - 2 * M_PI;
-		if(info->angel < -2 * M_PI)
-			info->angel = info->angel + 2 * M_PI;
+
+
+		// // info->angel = fmod(info->angel , (2 * M_PI));
+		// if(info->angel > M_PI)
+		// 	info->angel = info->angel - M_PI;
+		// if(info->angel <  M_PI)
+		// 	info->angel = info->angel +  M_PI;
 	}
 	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_RIGHT))
 	{
+		float angel;
+		angel = fmod(info->angel , (2 * M_PI));
+		if (angel > M_PI)
+			info->angel -= 2 * M_PI;
 		info->angel = info->angel + (info->rotate_speed);
-		if(info->angel > 2 * M_PI)
-			info->angel = info->angel - 2 * M_PI;
-		if(info->angel < -2 * M_PI)
-			info->angel = info->angel + 2 * M_PI;
 	}
 }
 
@@ -221,6 +234,32 @@ void ft_mlx_put_block(t_data *info ,int i ,int j)
 	}
 }
 
+// float	get_ray_distance(t_data *info)
+// {
+// 	float a = (info->ray.x - info->player_pos.x) * (info->ray.x - info->player_pos.x);
+// 	float b = (info->ray.y - info->player_pos.y) * (info->ray.y - info->player_pos.y);
+// 	return(sqrtf(a + b));
+// }
+
+
+
+
+// void	draw_ray(t_data *info)
+// {
+// 	int	distance = fabs(get_ray_distance(info));
+// 	printf("%d\n", (distance));
+// 	// float	x = info->player_pos.x;
+// 	// float	y = info->player_pos.y;
+
+// 	// for (int i = 0; i < distance; i++)
+// 	// {
+// 	// 	x += fabs(i * cos(info->angel));
+// 	// 	y += fabs(i * sin(info->angel));
+// 	// 	// printf("%f-%f\n", x/SIZE, y/SIZE);
+// 	// 	mlx_put_pixel(info->mlx.image, x, y, 0xFFFFF);
+// 	// }
+// }
+
 void rerender(void *inf)
 {
 	t_data *info = inf;
@@ -241,6 +280,9 @@ void rerender(void *inf)
 	info->der_pos.y = info->player_pos.y + 20 * sin(info->angel);
 	draw_player(info, 0x99FF90, 1);
 	draw_player(info, 0xFA8072, 0);
+	//
+	// draw_ray(info->player_pos.x, info->player_pos.y, info->ray.x, info->ray.y, info);
+	//temporory algorithm to draw one ray
 }
 
 int ft_player_pos_x(char **map2d)
@@ -319,23 +361,108 @@ float ft_player_angel(char **map2d)
 	return 0;
 }
 
+float	down_first_x(t_data *info, float y)
+{
+	float	distance;
+
+	// printf("%f\n", info->angel);
+	distance = y - info->player_pos.y;
+	float o = distance / tan(info->angel);
+	if (o < 0)
+		o *= -1;
+	if (info->angel < M_PI /2 )
+		return (o + info->player_pos.x);
+	else
+		return (info->player_pos.x - o);
+	return (0);
+}
+
+float	up_first_x(t_data *info, float y)
+{
+	float	distance;
+
+	// printf("%f\n", info->angel);
+
+	distance = (info->player_pos.y - y);
+	float o = distance / tan(info->angel);
+	if (o < 0)
+		o *= -1;
+	if (info->angel > -M_PI /2 )
+	{
+		// puts("here");
+		return (info->player_pos.x + o);
+	}
+	else
+		return (info->player_pos.x - o);
+}
+
+// float	set_angel(float old_angel)
+// {
+// 	float	new_angel;
+
+// 	new_angel = ;
+// 	return(new_angel);
+// }
+
+
+// this function is for horizontal inters with walls :
 void ray(void *inf)
 {
 	t_data *info = inf;
-	int distance;
+	float	x;
+	float	y;
 
-	if(info->angel > 0 && info->angel < M_PI)
+	// info->ray.angel = set_angel(info->angel);
+
+	if ((info->angel > 0 && info->angel < M_PI))
 	{
 		// t_ray first_inter;
-		info->ray.y = floor(info->player_pos.y / 32) * 32 + 32;
-		distance = info->ray.y - info->player_pos.y;
-		int o = tan(info->angel) * distance;
-		// if (info->angel < M_PI /2)
-			info->ray.x = o + info->player_pos.x;
-		// else
-		// 	info->ray.x = o - info->player_pos.x;
+		int tmp;
+		y = floor(info->player_pos.y / 32) * 32 + 32;
+		x = down_first_x(info, y);
+		while(wall(info, x, y) == 0){
+		// // 	// puts("hello");
+		// if (x/SIZE > info->width)
+		// 	x = (info->width - 1) * SIZE;
+		// if (x < 0)
+		// 	x = 0;
+			info->ray.x = x;
+			info->ray.y = y;
+			y += 32;
+			tmp = SIZE / tan(info->angel);
+			if (info->angel < M_PI /2 )
+				x += abs(tmp);
+			else
+				x -= abs(tmp);
+			// printf("x = %f\n", x);
+		}
+		// printf("x = %f y = %f \n", info->ray.x, info->ray.y);
 	}
-	printf("angel = %f \nx = %f y = %f \n",info->angel, info->ray.x, info->ray.y);
+	if ((info->angel < 0 && info->angel > -M_PI))
+	{
+		// puts("hello");
+		y = floor(info->player_pos.y / 32) * 32;
+		x = up_first_x(info, y);
+			// printf("x = %f\n", y);
+		while(wall(info, x, y) == 0){
+		// // // // 	// puts("hello");
+		// if (x/SIZE > info->width)
+		// 	x = (info->width - 1) * SIZE;
+		// if (x < 0)
+		// 	x = 0;
+			info->ray.x = x;
+			info->ray.y = y;
+			y -= 32;
+			if (info->angel > -M_PI /2)
+				x += SIZE / tan(fabs(info->angel));
+			else
+				x -= SIZE / tan(fabs(info->angel));
+		}
+	}
+		printf("x = %f y = %f \n", info->ray.x, info->ray.y);
+	// info->ray.x = x;
+	// info->ray.y = y;
+
 }
 
 void display_map(t_data *info)
@@ -347,9 +474,9 @@ void display_map(t_data *info)
 	mlx_image_to_window(info->mlx.mlx, info->mlx.image, 0, 0);
 
 	mlx_loop_hook(info->mlx.mlx, click, info);
-	mlx_loop_hook(info->mlx.mlx, rerender, info);
 	mlx_loop_hook(info->mlx.mlx, ray, info);
-
+	mlx_loop_hook(info->mlx.mlx, rerender, info);
+	// printf("x = %f y = %f \n", info->ray.x, info->ray.y);
 
 	mlx_loop(info->mlx.mlx);
 	mlx_terminate(info->mlx.mlx);
