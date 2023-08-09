@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
- #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
+ #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
 
 
 #define RGB(r, g, b) (r << 16 | g << 8 | b)
