@@ -1,4 +1,6 @@
+
  #include "cube3d.h"
+
 
 
 
@@ -61,14 +63,17 @@ static char	**str_count(char **str, const char *s, char c)
 }
 
 char **ft_read_map2d(char *av, int	*height, int *width)
+
 {
     char	**map2d;
 	char	*map;
 	char	*str;
 	int		fd;
 
+
 	int	i = 0;
 	int j = 0;
+
 	fd = open((const char *)av, O_RDONLY);
 	if (fd == -1)
 	{
@@ -83,15 +88,18 @@ char **ft_read_map2d(char *av, int	*height, int *width)
 		if (!str)
 			break ;
 		i++;
+
 		map = ft_strjoin(map, str);
 		free(str);
 	}
 	map2d = ft_split(map, '\n');
+
 	j = ft_strlen(map2d[0]);
 	// printf("%d, %d\n", i, j);
 	*height = i;
 	*width = j;
 	free(map);
+
 
 	return (map2d);
 }
@@ -108,6 +116,7 @@ int ft_heightlen(char **map2d)
 	}
 	return max;
 }
+
 
 
 
@@ -137,6 +146,18 @@ int ft_heightlen(char **map2d)
 // }
 
 void draw_player(t_data *info, int color, int p_or_der)
+
+void ft_draw_32(char **map2d, t_vars *p_pos, int i, int j, int color)
+{
+	if(color == 0)
+		mlx_put_image_to_window(p_pos->mlx, p_pos->mlx_win,p_pos->white,  j * 32,i * 32);
+	else
+		mlx_put_image_to_window(p_pos->mlx, p_pos->mlx_win,p_pos->dackBlue,  j * 32, i * 32);
+
+}
+
+void ft_draw_p(char **map2d, void *mlx, void *mlx_win, int i, int j, int color)
+
 {
 	int x, y;
 	x = y = 0;
@@ -145,10 +166,13 @@ void draw_player(t_data *info, int color, int p_or_der)
 		y = 0;
 		while(y < 4)
 		{
+
 			if(p_or_der == 1)
 				mlx_put_pixel(info->mlx.image, info->player_pos.x + x, info->player_pos.y + y, color);
 			else
 				mlx_put_pixel(info->mlx.image, info->der_pos.x + x, info->der_pos.y + y, color);
+
+
 			y++;
 		}
 		x++;
@@ -167,9 +191,11 @@ int wall(t_data *info, int x, int y)
 	if (x >= info->width || y >= info->height || x < 0 || y < 0)
 		return (1);
 	if(info->map2d[y][x] == '1')
+
 		return 1;
 	return 0;
 }
+
 
 void click(void *inf)
 {
@@ -283,6 +309,7 @@ void rerender(void *inf)
 	//
 	// draw_ray(info->player_pos.x, info->player_pos.y, info->ray.x, info->ray.y, info);
 	//temporory algorithm to draw one ray
+
 }
 
 int ft_player_pos_x(char **map2d)
@@ -357,6 +384,7 @@ float ft_player_angel(char **map2d)
 	if(map2d[i][j] == 'W')
 		return (M_PI);
 	if(map2d[i][j] == 'S')
+
 		return (-3 * M_PI / 2);
 	return 0;
 }
@@ -513,5 +541,6 @@ int main (int ac, char **av)
 	display_map(info);
     // if(check_map(map))
     //    return(perror("error"),1);
+
     
 }

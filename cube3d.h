@@ -13,11 +13,6 @@
 #define RGB(r, g, b) (r << 16 | g << 8 | b)
 
 #define SIZE 32
-#define KEY_UP 13
-#define KEY_DOWN 1
-#define KEY_LEFT 0
-#define KEY_RIGHT 2
-
 
 typedef struct	s_pos
 {
@@ -58,7 +53,6 @@ typedef struct s_data
 	t_mlx	mlx;
 	t_ray	ray;
 }   t_data;
-
 
 
 
