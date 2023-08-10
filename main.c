@@ -271,6 +271,18 @@ void ft_mlx_put_block(t_data *info ,int i ,int j)
 // 	// }
 // }
 
+void	draw_ray(t_data *info)
+{
+	float	x;
+	float	y;
+	// if (info->ray->distance > info->height * info->width * 32)
+	// 	return ;
+	for (int i = 0; i<info->ray->distance; i++){
+		x = i * cos(info->ray->angel);
+		y = i * sin(info->ray->angel);
+		mlx_put_pixel(info->mlx.image,info->player_pos.x + x ,info->player_pos.y + y , 0x99FF90);
+	}
+}
 void rerender(void *inf)
 {
 	t_data *info = inf;
@@ -296,11 +308,12 @@ void rerender(void *inf)
 	while (info->ray)
 	{
 		// printf("<%f    %f<<<<<\n", info->ray->x, info->ray->y);
-		mlx_put_pixel(info->mlx.image, info->ray->x, info->ray->y, 0x99FF90);
-		mlx_put_pixel(info->mlx.image, info->ray->x + 1, info->ray->y, 0x99FF90);
-		mlx_put_pixel(info->mlx.image, info->ray->x + 2, info->ray->y, 0x99FF90);
-		mlx_put_pixel(info->mlx.image, info->ray->x, info->ray->y + 1, 0x99FF90);
-		mlx_put_pixel(info->mlx.image, info->ray->x, info->ray->y + 2, 0x99FF90);
+		draw_ray(info);
+		// mlx_put_pixel(info->mlx.image, info->ray->x, info->ray->y, 0x99FF90);
+		// mlx_put_pixel(info->mlx.image, info->ray->x + 1, info->ray->y, 0x99FF90);
+		// mlx_put_pixel(info->mlx.image, info->ray->x + 2, info->ray->y, 0x99FF90);
+		// mlx_put_pixel(info->mlx.image, info->ray->x, info->ray->y + 1, 0x99FF90);
+		// mlx_put_pixel(info->mlx.image, info->ray->x, info->ray->y + 2, 0x99FF90);
 		info->ray = info->ray->next;
 	}
 	// // draw_ray(info->player_pos.x, info->player_pos.y, info->ray.x, info->ray.y, info);
@@ -422,6 +435,9 @@ float up_secnd_x(t_ray *ray, float angel, float y)
 
 float ft_distance(t_data *info, float x, float y)
 {
+	// printf("%f  %f\n", x, y);
+	// if (x < 0 || y < 0)
+	// 	return (0);
 	return(sqrt(pow(info->player_pos.x - x, 2) + pow(info->player_pos.y - y, 2)));
 }
 /*         waaaaaaaaaaa      */
@@ -432,7 +448,7 @@ t_ray	*horizontal(t_data *info, float angel)
 	float	y;
 	t_ray *ray = malloc(sizeof(t_ray));
 
-	if ((angel > 0 && angel < M_PI))
+	if ((angel >= 0 && angel <= M_PI))
 	{
 		y = floor(info->player_pos.y / 32) * 32 + 32;
 		x = down_first_x(info, angel, y);
@@ -449,7 +465,7 @@ t_ray	*horizontal(t_data *info, float angel)
 
 	// printf("x = %d y = %f \n", (int)(info->ray.hx/32), info->ray.hy/32);
 	
-	while(wall(info, ray->x, ray->y) == 0 && angel > 0 && angel < M_PI)
+	while(wall(info, ray->x, ray->y) == 0 && angel >= 0 && angel <= M_PI)
 	{
 			ray->y += 32;
 			ray->x = down_secnd_x(ray, angel, ray->y);
@@ -459,6 +475,17 @@ t_ray	*horizontal(t_data *info, float angel)
 			ray->y-= 32;
 			ray->x = up_secnd_x(ray, angel, ray->y);
 	}
+	if (ray->x < 0 )
+		ray->x = 0;
+	if (ray->y < 0)
+		ray->y = 0;
+	if (ray->x > info->width * 32)
+		ray->x = info->width * 32 - 1;
+
+	if (ray->y > info->height * 32)
+		ray->y = info->height * 32 - 1;
+	
+
 	ray->next = NULL;
 	return (ray);
 }
@@ -490,28 +517,48 @@ void	add_rays(t_ray **rays, t_ray *new_ray)
 void ray(void *inf)
 {
 	t_data *info = inf;
+	float tmp = info->width * info->height * 32;
+
+	float	start_angel = info->angel - (30 * M_PI / 180);
+	float	end_angel = info->angel + (30 * M_PI / 180);
+
 	info->ray = NULL;
-
-	float	start_angel = info->angel - 30 * (M_PI / 180);
-	float	end_angel = info->angel + 30 * (M_PI / 180);
-
 	while (start_angel <= end_angel)
 	{
 		t_ray	*virtical_ray;
 		t_ray	*horizontal_ray;
 		virtical_ray = virtical(info, start_angel);
 		horizontal_ray = horizontal(info, start_angel);
+		// if (!horizontal_ray || !virtical_ray)
+		// {
+		// 	start_angel += 0.01;
+		printf("%f  ^  %f>>\n", horizontal_ray->distance ,virtical_ray->distance);
+		// printf("%f  ^  %f>>\n", horizontal_ray->distance ,virtical_ray->distance);
+		// printf("%f  ^  %f>>\n", horizontal_ray->distance ,virtical_ray->distance);
+		// printf("%f  ^  %f>>\n", horizontal_ray->distance ,virtical_ray->distance);
+		// // 	continue ;
+		// }
+
 		if(ft_distance(info, horizontal_ray->x, horizontal_ray->y) > ft_distance(info, virtical_ray->x, virtical_ray->y))
 		{
-			add_rays(&info->ray, virtical_ray);
+			virtical_ray->distance = ft_distance(info, virtical_ray->x, virtical_ray->y);
+			virtical_ray->angel = start_angel;
+			if (virtical_ray->distance < tmp)
+				add_rays(&info->ray, virtical_ray);
+			free(horizontal_ray);
 		}
 		else
 		{
-			add_rays(&info->ray, horizontal_ray);
+			horizontal_ray->distance = ft_distance(info, horizontal_ray->x, horizontal_ray->y);
+			horizontal_ray->angel = start_angel;
+			if (horizontal_ray->distance < tmp)
+				add_rays(&info->ray, horizontal_ray);
+			free(virtical_ray);
 		}
 		start_angel += 0.01;
+		// ( 1 * M_PI / 180);
 	}
-	// printf("%f    %f>>\n", virtical_ray->x ,virtical_ray->y);
+	// printf("%f    %f>>\n", ray->x ,virtical_ray->y);
 	// info->ray = virtical_ray;
 
 	

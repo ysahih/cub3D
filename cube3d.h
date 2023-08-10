@@ -40,7 +40,8 @@ typedef struct s_ray
 {
 	float x;
 	float y;
-	float	angel;
+	float	distance;
+	float angel;
 	struct s_ray	*next;
 } t_ray;
 

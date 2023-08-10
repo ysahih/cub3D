@@ -14,7 +14,6 @@ float	first_y(t_data *info, float angel, float x)
 float	left_first_y(t_data *info, float angel, float x)
 {
 	float	distance;
-
 	distance = info->player_pos.x - x;
 	float	opp;
 	opp = distance * tan(angel);
@@ -35,12 +34,12 @@ float right_secnd_y(t_ray *ray, float angel, float y)
 
 t_ray	*virtical(t_data *info, float angel)
 {
-	float	x;
+	float	x = 0;;
 	float	y;
 	// t_pos	ray_position;
 	t_ray *ray = malloc(sizeof(t_ray));
 
-	if (angel > - M_PI / 2 && angel < M_PI / 2)
+	if (angel >= - M_PI / 2 && angel <= M_PI / 2)
 	{
 
 		x = floor(info->player_pos.x / 32) * 32 + 32;
@@ -48,24 +47,36 @@ t_ray	*virtical(t_data *info, float angel)
 		ray->x = x;
 		ray->y = y;
 	}
-	if ((angel > -M_PI && angel < -M_PI / 2) || (angel < M_PI && angel > M_PI / 2))
+	if ((angel >= -M_PI && angel < -M_PI / 2) || (angel <= M_PI && angel > M_PI / 2))
 	{
+		// printf("%f\n", angel);
+		// puts("here");
 		x = floor(info->player_pos.x / 32) * 32;
 		y = left_first_y(info, angel, x);
 		ray->x = x;
 		ray->y = y;
 	}
-	// printf("x = %f y = %f \n", ray->vx/32, ray->vy/32);
-	while((angel > - M_PI / 2 && angel < M_PI / 2) && wall(info, ray->x, ray->y) == 0)
+	
+	while((angel >= - M_PI / 2 && angel <= M_PI / 2) && wall(info, ray->x, ray->y) == 0)
 	{
 		ray->x += 32;
 		ray->y = left_secnd_y(ray, angel, ray->x);
 	}
-	while(((angel > -M_PI && angel < -M_PI / 2) || (angel < M_PI && angel > M_PI / 2)) && wall(info, ray->x - 32, ray->y) == 0)
+	while(((angel >= -M_PI && angel < -M_PI / 2) || (angel <= M_PI && angel > M_PI / 2)) && wall(info, ray->x - 32, ray->y) == 0)
 	{
 		// write(2,"test\n", 5);
 		ray->x -= 32;
 		ray->y = right_secnd_y(ray, angel, ray->x);
+	}
+	if (ray->x < 0 )
+		ray->x = 0;
+	if (ray->y < 0)
+		ray->y = 0;
+	if (ray->x > info->width * 32)
+		ray->x = info->width * 32 - 1;
+	if (ray->y > info->height * 32)
+	{
+		ray->y = info->height * 32 - 1;
 	}
 	ray->next = NULL;
 	return (ray);
