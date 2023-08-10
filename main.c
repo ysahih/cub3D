@@ -230,10 +230,10 @@ void ft_mlx_put_block(t_data *info ,int i ,int j)
 {
 	int a = 0;
 	int b = 0;
-	while(a < 31)
+	while(a < 32)
 	{
 		b = 0;
-		while(b < 31)
+		while(b < 32)
 		{
 			if(info->map2d[i][j] == '1')
 				mlx_put_pixel(info->mlx.image, (j * 32) + a, (i * 32) + b, 0xFF00f0);
@@ -295,6 +295,8 @@ void rerender(void *inf)
 	mlx_put_pixel(info->mlx.image, info->ray.x, info->ray.y, 0x99FF90);
 	mlx_put_pixel(info->mlx.image, info->ray.x + 1, info->ray.y, 0x99FF90);
 	mlx_put_pixel(info->mlx.image, info->ray.x + 2, info->ray.y, 0x99FF90);
+	mlx_put_pixel(info->mlx.image, info->ray.x, info->ray.y + 1, 0x99FF90);
+	mlx_put_pixel(info->mlx.image, info->ray.x, info->ray.y + 2, 0x99FF90);
 	// draw_ray(info->player_pos.x, info->player_pos.y, info->ray.x, info->ray.y, info);
 	//temporory algorithm to draw one ray
 }
@@ -401,61 +403,77 @@ float	up_first_x(t_data *info, float y)
 float	down_secnd_x(t_data *info, float y)
 {
 	float o = 32 / tan(info->angel);
-	return(o + info->ray.x);
+	return(o + info->ray.hx);
 }
 
 float up_secnd_x(t_data *info, float y)
 {
 	float o = 32 / tan(info->angel);
 	printf(" o = %f\n", o);
-	return(info->ray.x - o);
+	return(info->ray.hx - o);
 }
 
+float ft_distance(t_data *info, float x, float y)
+{
+	return(sqrt(pow(info->player_pos.x - x, 2) + pow(info->player_pos.y - y, 2)));
+}
+/*         waaaaaaaaaaa      */
 void ray(void *inf)
 {
 	t_data *info = inf;
 	float	x;
 	float	y;
 
-
+	virtical(info);
 	if ((info->angel > 0 && info->angel < M_PI))
 	{
 		y = floor(info->player_pos.y / 32) * 32 + 32;
 		x = down_first_x(info, y);
-		info->ray.x = x;
-		info->ray.y = y;
+		info->ray.hx = x;
+		info->ray.hy = y;
 	}
 	if ((info->angel < 0 && info->angel > -M_PI))
 	{
 		y = floor(info->player_pos.y / 32) * 32;
 		x = up_first_x(info, y);
-		info->ray.x = x;
-		info->ray.y = y;
+		info->ray.hx = x;
+		info->ray.hy = y;
 	}
 
-	printf("x = %d y = %f \n", (int)(info->ray.x/32), info->ray.y/32);
+	printf("x = %d y = %f \n", (int)(info->ray.hx/32), info->ray.hy/32);
 	
-	while(wall(info, info->ray.x, info->ray.y) == 0 && info->angel > 0 && info->angel < M_PI)
+	while(wall(info, info->ray.hx, info->ray.hy) == 0 && info->angel > 0 && info->angel < M_PI)
 	{
-			info->ray.y += 32;
-			info->ray.x = down_secnd_x(info, info->ray.y);
+			info->ray.hy += 32;
+			info->ray.hx = down_secnd_x(info, info->ray.hy);
 	}
-	while(wall(info, info->ray.x, info->ray.y - 32) == 0 && info->angel < 0 && info->angel >- M_PI)
+	while(wall(info, info->ray.hx, info->ray.hy - 32) == 0 && info->angel < 0 && info->angel >- M_PI)
 	{
-			info->ray.y -= 32;
-			info->ray.x = up_secnd_x(info, info->ray.y);
+			info->ray.hy -= 32;
+			info->ray.hx = up_secnd_x(info, info->ray.hy);
+	}
+
+	if(ft_distance(info, info->ray.hx, info->ray.hy) > ft_distance(info, info->ray.vx, info->ray.vy))
+	{
+		info->ray.x = info->ray.vx;
+		info->ray.y = info->ray.vy;
+	}
+	else
+	{
+		info->ray.x = info->ray.hx;
+		info->ray.y = info->ray.hy;
 	}
 
 }
 
-void ft_first_poit(t_data *info, t_ray *first_point)
-{
-	first_point->y = floor(info->player_pos.y / 32) * 32 + 32;
-	float adjusent = first_point->y - info->player_pos.y;
-	float opposite =  adjusent /tan(info->angel) ;
-	first_point->x = info->player_pos.x + opposite;
-	mlx_put_pixel(info->mlx.image,first_point->x, first_point->y, 0xFFFF6B);
-}
+// void ft_first_poit(t_data *info, t_ray *first_point)
+// {
+// 	first_point->y = floor(info->player_pos.y / 32) * 32 + 32;
+// 	float adjusent = first_point->hy - info->player_pos.y;
+// 	float opposite =  adjusent /tan(info->angel) ;
+// 	first_point->x = info->player_pos.x + opposite;
+// 	mlx_put_pixel(info->mlx.image,first_point->hx, first_point->hy, 0xFFFF6B);
+// }
 
 
 
@@ -474,8 +492,8 @@ int check_y(int y,int x, char **map2d)
 
 int there_is_wall(t_data *info, t_ray first_point)
 {
-	int x = first_point.x / 32;
-	int y = first_point.y / 32;
+	int x = first_point.hx / 32;
+	int y = first_point.hx / 32;
 	printf("xx = %d y = %d\n", x, y);
 
 	if(info->map2d[x][y] == '1')

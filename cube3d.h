@@ -39,6 +39,10 @@ typedef struct  s_mlx
 typedef struct s_ray
 {
 	
+	float vx;
+	float vy;
+	float hx;
+	float hy;
 	float x;
 	float y;
 	float	angel;
@@ -71,5 +75,7 @@ char	*ft_strdup(const char *s);
 char	*ft_strjoin_one(char const *s1, char const *s2);
 void	ft_bzero(void *s, size_t n);
 char	*ft_strchr(const char *s, int c);
+void	virtical(t_data *info);
+int wall(t_data *info, int x, int y);
 
 #endif
