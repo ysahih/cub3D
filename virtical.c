@@ -1,67 +1,75 @@
 #include "cube3d.h"
 
-float	first_y(t_data *info, float x)
+float	first_y(t_data *info, float angel, float x)
 {
 	// printf("%f\n", info->angel);
 	float	distance;
 
 	distance = x - info->player_pos.x;
 	float	opp;
-	opp = tan(info->angel) * distance;
+	opp = tan(angel) * distance;
 	return (info->player_pos.y + opp);
 }
 
-float	left_first_y(t_data *info, float x)
+float	left_first_y(t_data *info, float angel, float x)
 {
 	float	distance;
 
 	distance = info->player_pos.x - x;
 	float	opp;
-	opp = distance * tan(info->angel);
+	opp = distance * tan(angel);
 	return (info->player_pos.y - opp);
 }
 
-float left_secnd_y(t_data *info, float y)
+float left_secnd_y(t_ray *ray, float angel, float y)
 {
-	float o = 32 * tan(info->angel);
-	return(o + info->ray.vy);
+	float o = 32 * tan(angel);
+	return(o + ray->y);
 }
-float right_secnd_y(t_data *info, float y)
+float right_secnd_y(t_ray *ray, float angel, float y)
 {
-	float o = 32 * tan(info->angel);
-	return(info->ray.vy - o);
+	float o = 32 * tan(angel);
+	return(ray->y - o);
 }
 
-void	virtical(t_data *info)
+
+t_ray	*virtical(t_data *info, float angel)
 {
 	float	x;
 	float	y;
+	// t_pos	ray_position;
+	t_ray *ray = malloc(sizeof(t_ray));
 
-	if (info->angel > - M_PI / 2 && info->angel < M_PI / 2)
+	if (angel > - M_PI / 2 && angel < M_PI / 2)
 	{
 
 		x = floor(info->player_pos.x / 32) * 32 + 32;
-		y = first_y(info, x);
-		info->ray.vx = x;
-		info->ray.vy = y;
+		y = first_y(info, angel, x);
+		ray->x = x;
+		ray->y = y;
 	}
-	if ((info->angel > -M_PI && info->angel < -M_PI / 2) || (info->angel < M_PI && info->angel > M_PI / 2))
+	if ((angel > -M_PI && angel < -M_PI / 2) || (angel < M_PI && angel > M_PI / 2))
 	{
 		x = floor(info->player_pos.x / 32) * 32;
-		y = left_first_y(info, x);
-		info->ray.vx = x;
-		info->ray.vy = y;
+		y = left_first_y(info, angel, x);
+		ray->x = x;
+		ray->y = y;
 	}
-	printf("x = %f y = %f \n", info->ray.vx/32, info->ray.vy/32);
-	while((info->angel > - M_PI / 2 && info->angel < M_PI / 2) && wall(info, info->ray.vx, info->ray.vy) == 0)
+	// printf("x = %f y = %f \n", ray->vx/32, ray->vy/32);
+	while((angel > - M_PI / 2 && angel < M_PI / 2) && wall(info, ray->x, ray->y) == 0)
 	{
-		info->ray.vx += 32;
-		info->ray.vy = left_secnd_y(info, info->ray.vx);
+		ray->x += 32;
+		ray->y = left_secnd_y(ray, angel, ray->x);
 	}
-	while(((info->angel > -M_PI && info->angel < -M_PI / 2) || (info->angel < M_PI && info->angel > M_PI / 2)) && wall(info, info->ray.vx - 32, info->ray.vy) == 0)
+	while(((angel > -M_PI && angel < -M_PI / 2) || (angel < M_PI && angel > M_PI / 2)) && wall(info, ray->x - 32, ray->y) == 0)
 	{
-		write(2,"test\n", 5);
-		info->ray.vx -= 32;
-		info->ray.vy = right_secnd_y(info, info->ray.vx);
+		// write(2,"test\n", 5);
+		ray->x -= 32;
+		ray->y = right_secnd_y(ray, angel, ray->x);
 	}
+	ray->next = NULL;
+	return (ray);
+	// ray_position.x = ray->vx;
+	// ray_position.y = ray->vy;
+
 }
