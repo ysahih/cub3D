@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:29 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/03 02:59:59 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:04:38 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 size_t	ft_strlen(const char *s)
 {

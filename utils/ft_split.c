@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/03 02:54:12 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:04:24 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static char	**str_count(char **str, const char *s, char c)
 {
