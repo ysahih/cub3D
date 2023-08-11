@@ -12,7 +12,7 @@
 
 #define RGB(r, g, b) (r << 16 | g << 8 | b)
 
-#define SIZE 32
+#define SIZE 32 
 
 #define KEY_UP 13
 #define KEY_DOWN 1
@@ -29,39 +29,34 @@ typedef struct	s_pos
 typedef struct  s_mlx
 {
 	mlx_image_t	*image;
-	char		*adrs;
 	mlx_t		*mlx;
-	int			len;
-	int			block;
-	int			endian;
+
 } t_mlx;
 
 typedef struct s_ray
 {
-	float x;
-	float y;
-	float	distance;
-	float angel;
+	float			distance;
+	float		 	angle;
+	float			x;
+	float			y;
 	struct s_ray	*next;
 } t_ray;
 
 typedef struct s_data
 {
-	int		width; // row
-	int		height; // col
-	t_pos	player_pos;
-	t_pos	der_pos;
-	float 	move_speed;
-	float 	rotate_speed;
-	float 	angel;
-	char 	**map2d;
-	t_mlx	mlx;
-	t_ray	*ray;
+	char 			**map2d;
+	t_ray			*ray;
+	t_mlx			mlx;
+	t_pos			der_pos;
+	t_pos			player_pos;
+	int				width; // row
+	int				height; // col
+	float 			move_speed;
+	float 			rotate_speed;
+	float 			angle;
 }   t_data;
 
-
-
-
+//utils
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	**ft_split(const char *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -72,7 +67,12 @@ char	*ft_strjoin_one(char const *s1, char const *s2);
 void	ft_bzero(void *s, size_t n);
 char	*ft_strchr(const char *s, int c);
 
-t_ray	*virtical(t_data *info, float angel);
+//ray casting
+void	ray(void *inf);
+t_ray	*vertical(t_data *info, float angle);
+t_ray	*horizontal(t_data *info, float angle);
+
+//ray casting utils
 int 	wall(t_data *info, int x, int y);
 
 #endif
