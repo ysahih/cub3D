@@ -15,7 +15,7 @@
 
 #define SIZE 32 
 
-#define	RAYS 210
+#define	RAYS 1048
 
 typedef struct	s_pos
 {

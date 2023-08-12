@@ -234,7 +234,7 @@ void rerender(void *inf)
 	t_ray *ray;
 	int i = 0;
 	int j = 0;
-	int k = info->height / 2;
+	int k = (info->height) / 2;
 
 	while(i < k)
 	{
@@ -252,7 +252,7 @@ void rerender(void *inf)
 		j = 0;
 		while(info->map2d[i][j])
 		{
-			ft_mlx_put_block(info, i, j, 0x36454F);
+			ft_mlx_put_block(info, i, j, 0xFFFFF);
 			j++;
 		}
 		i++;

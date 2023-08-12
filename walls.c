@@ -13,22 +13,20 @@ void    mlx_put_wall(t_data *info, float x, float y)
 {
 	int block = info->width * SIZE / RAYS + 1;
 
-    // printf("%f    %f\n", x, y);
+	if (y < 0 )
+		return ;
 	for (int j = 0; j < block; j++)
     {
             if (x + j < info->width * SIZE)
-			    mlx_put_pixel(info->mlx.image, x + j, y, 0xFFFFFF);
+			    mlx_put_pixel(info->mlx.image, x + j, y, 0x000F0);
     }
-	
-
 }
 
 void    draw_walls(t_data *info, int x)
 {
-	
-	int middle = info->height * 32 / 2;
+	int middle = info->height * 32 / 2 - 10;
 
-	float wall_height = SIZE / info->ray->distance * 210;
+	float wall_height = 320 * SIZE / info->ray->distance;
 
     if (wall_height > info->height * SIZE)
         wall_height = info->height * SIZE;
