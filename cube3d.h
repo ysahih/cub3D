@@ -10,15 +10,12 @@
  #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 
+
 #define RGB(r, g, b) (r << 16 | g << 8 | b)
 
 #define SIZE 32 
 
-#define KEY_UP 13
-#define KEY_DOWN 1
-#define KEY_LEFT 0
-#define KEY_RIGHT 2
-
+#define	RAYS 210
 
 typedef struct	s_pos
 {
@@ -39,6 +36,7 @@ typedef struct s_ray
 	float		 	angle;
 	float			x;
 	float			y;
+	int				nb;
 	struct s_ray	*next;
 } t_ray;
 
@@ -74,5 +72,9 @@ t_ray	*horizontal(t_data *info, float angle);
 
 //ray casting utils
 int 	wall(t_data *info, int x, int y);
+
+
+//walls
+void    draw_walls(t_data *info, int x);
 
 #endif

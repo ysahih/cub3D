@@ -6,11 +6,11 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/11 18:04:24 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/11 18:15:42 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "cube3d.h"
 
 static char	**str_count(char **str, const char *s, char c)
 {
