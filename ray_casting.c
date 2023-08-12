@@ -31,6 +31,7 @@ float ft_distance(t_data *info, float x, float y)
 
 void	ray(void *inf)
 {
+	// int zbi_kbiiiir = 0;
 	t_data	*info;
 	t_ray	*horizontal_ray;
 	t_ray	*vertical_ray;
@@ -38,7 +39,7 @@ void	ray(void *inf)
 	info = inf;
 	float	start_angle = info->angle - (30 * M_PI / 180);
 	float	end_angle = info->angle + (30 * M_PI / 180);
-
+	// int i = 0
 	info->ray = NULL;
 	while (start_angle <= end_angle)
 	{
@@ -50,6 +51,7 @@ void	ray(void *inf)
 			vertical_ray->angle = start_angle;
 			add_rays(&info->ray, vertical_ray);
 			free(horizontal_ray);
+
 		}
 		else
 		{
@@ -58,6 +60,9 @@ void	ray(void *inf)
 			add_rays(&info->ray, horizontal_ray);
 			free(vertical_ray);
 		}
-		start_angle += 0.001;
+			// zbi_kbiiiir++;
+		start_angle += 0.005;
+		// i++;
 	}
+	// printf("%d\n", zbi_kbiiiir);
 }
