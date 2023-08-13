@@ -11,29 +11,31 @@ to render the walls we calculate the size of the wall and its start point; */
 
 void    mlx_put_wall(t_data *info, float x, float y)
 {
-	int block = info->width * SIZE / RAYS + 1;
+	float block = WIDTH / RAYS;
 
 	if (y < 0 )
 		return ;
-	for (int j = 0; j < block; j++)
+	for (float j = 0; j < block; j++)
     {
             if (x + j < info->width * SIZE)
-			    mlx_put_pixel(info->mlx.image, x + j, y, 0x000F0);
+				if(x + j <= WIDTH)
+			    	mlx_put_pixel(info->mlx.image, x + j, y, 0x000F0);
     }
 }
 
-void    draw_walls(t_data *info, int x)
+void    draw_walls(t_data *info, float x)
 {
-	int middle = info->height * 32 / 2 - 10;
+	float middle = HEIGHT / 2;
 
-	float wall_height = 320 * SIZE / info->ray->distance;
+	float wall_height = HEIGHT * SIZE / info->ray->distance;
 
-    if (wall_height > info->height * SIZE)
-        wall_height = info->height * SIZE;
+    if (wall_height > HEIGHT)
+        wall_height = HEIGHT;
 
-	int y = middle - wall_height / 2;
+	float y = middle - wall_height / 2;
 	
 	for (int i = 0; i < wall_height; i++){
-		mlx_put_wall(info, x, y + i);
+		mlx_put_pixel(info->mlx.image, x , y + i, 0x000F0);
+		// mlx_put_wall(info, x, y + i);
 	}
 }

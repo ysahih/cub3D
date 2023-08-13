@@ -14,8 +14,9 @@
 #define RGB(r, g, b) (r << 16 | g << 8 | b)
 
 #define SIZE 32 
-
 #define	RAYS 1048
+#define WIDTH 1048
+#define HEIGHT 720
 
 typedef struct	s_pos
 {
@@ -27,7 +28,6 @@ typedef struct  s_mlx
 {
 	mlx_image_t	*image;
 	mlx_t		*mlx;
-
 } t_mlx;
 
 typedef struct s_ray
@@ -75,6 +75,6 @@ int 	wall(t_data *info, int x, int y);
 
 
 //walls
-void    draw_walls(t_data *info, int x);
+void    draw_walls(t_data *info, float x);
 
 #endif

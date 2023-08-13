@@ -232,37 +232,36 @@ void rerender(void *inf)
 {
 	t_data *info = inf;
 	t_ray *ray;
-	int i = 0;
-	int j = 0;
-	int k = (info->height) / 2;
-
-	while(i < k)
-	{
-		j = 0;
-		while(info->map2d[i][j])
-		{
-			ft_mlx_put_block(info, i, j, 0x87CEEB);
-			j++;
-		}
-		i++;
-	}
-
-	while(info->map2d[i])
-	{
-		j = 0;
-		while(info->map2d[i][j])
-		{
-			ft_mlx_put_block(info, i, j, 0xFFFFF);
-			j++;
-		}
-		i++;
-	}
-
 	int x = 0;
+	int y = 0;
+	int k = HEIGHT / 2;
+	while(y < k)
+	{
+		x = 0;
+		while(x < WIDTH)
+		{
+			mlx_put_pixel(info->mlx.image, x, y, 0x87CEEB);
+			x++;
+		}
+		y++;
+	}
+
+	while(y < HEIGHT)
+	{
+		x = 0;
+		while(x < WIDTH)
+		{
+			mlx_put_pixel(info->mlx.image, x, y, 0x000000);
+			x++;
+		}
+		y++;
+	}
+
+	 x = 0;
 
 	while (info->ray)
 	{
-		int block = info->width * SIZE / RAYS + 1;
+		float block = WIDTH / RAYS ;
 		draw_walls(info, x * block);
 		info->ray = info->ray->next;
 		x++;
@@ -361,14 +360,13 @@ float ft_player_angle(char **map2d)
 
 void display_map(t_data *info)
 {
-	info->mlx.mlx = mlx_init(info->width * SIZE, info->height * SIZE, "test", NULL);
-	info->mlx.image = mlx_new_image(info->mlx.mlx, info->width * SIZE, info->height * SIZE);
+	info->mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
+	info->mlx.image = mlx_new_image(info->mlx.mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(info->mlx.mlx, info->mlx.image, 0, 0);
 	mlx_loop_hook(info->mlx.mlx, click, info);
 	mlx_loop_hook(info->mlx.mlx, ray, info);
 	mlx_loop_hook(info->mlx.mlx, rerender, info);
 	mlx_loop(info->mlx.mlx);
-	mlx_terminate(info->mlx.mlx);
 }
 
 t_data	get_info(char **map, int height, int width)

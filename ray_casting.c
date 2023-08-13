@@ -60,9 +60,8 @@ void	ray(void *inf)
 			add_rays(&info->ray, horizontal_ray);
 			free(vertical_ray);
 		}
-			// zbi_kbiiiir++;
 		start_angle += 0.001;
 		// i++;
 	}
-	// printf("%d\n", zbi_kbiiiir);
+
 }
