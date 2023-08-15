@@ -9,23 +9,23 @@
 #include <stdbool.h>
  #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
-
-
-#define RGB(r, g, b) (r << 16 | g << 8 | b)
+#define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
 #define SIZE 32 
 #define	RAYS 1048
 #define WIDTH 1048
 #define HEIGHT 720
+#define MINI 0.5
 
 typedef struct	s_pos
 {
 	float	x;
 	float	y;
-	
 } t_pos;
 typedef struct  s_mlx
 {
+	mlx_texture_t *txt;
+	mlx_image_t	*txt_image;
 	mlx_image_t	*image;
 	mlx_t		*mlx;
 } t_mlx;
@@ -34,12 +34,13 @@ typedef struct s_ray
 {
 	float			distance;
 	float		 	angle;
+
 	float			x;
 	float			y;
+	char			t;
 	int				nb;
 	struct s_ray	*next;
 } t_ray;
-
 typedef struct s_data
 {
 	char 			**map2d;
@@ -72,9 +73,12 @@ t_ray	*horizontal(t_data *info, float angle);
 
 //ray casting utils
 int 	wall(t_data *info, int x, int y);
+void	draw_ray(t_data *info);
 
-
+//minimap
+void	render_minimap(t_data *info);
+void	draw_player(t_data *info, int color,int i);
 //walls
-void    draw_walls(t_data *info, float x);
+void    draw_walls(t_ray *ray, t_data *info, float x);
 
 #endif

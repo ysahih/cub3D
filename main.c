@@ -120,9 +120,9 @@ void draw_player(t_data *info, int color, int p_or_der)
 		while(y < 4)
 		{
 			if(p_or_der == 1)
-				mlx_put_pixel(info->mlx.image, info->player_pos.x + x, info->player_pos.y + y, color);
-			else
-				mlx_put_pixel(info->mlx.image, info->der_pos.x + x, info->der_pos.y + y, color);
+				mlx_put_pixel(info->mlx.image, (info->player_pos.x + x)* MINI, (info->player_pos.y + y) * MINI, color);
+			// else
+			// 	mlx_put_pixel(info->mlx.image, info->der_pos.x + x, info->der_pos.y + y, color);
 			y++;
 		}
 		x++;
@@ -222,20 +222,22 @@ void	draw_ray(t_data *info)
 	float	y;
 	float angle = info->ray->angle;
 
-	for (int i = 0; i<info->ray->distance; i++){
+	for (int i = 0; i<info->ray->distance *0.8; i++){
 		x = i * cos(angle);
 		y = i * sin(angle);
-		mlx_put_pixel(info->mlx.image,info->player_pos.x + x ,info->player_pos.y + y , 0xFFFFFF);
+		mlx_put_pixel(info->mlx.image,(info->player_pos.x + x) * MINI ,(info->player_pos.y + y) * MINI , 0xFFFFFF);
 	}
 }
+
+
 void rerender(void *inf)
 {
 	t_data *info = inf;
 	t_ray *ray;
-	int x = 0;
+	float x = 0;
 	int y = 0;
-	int k = HEIGHT / 2;
-	while(y < k)
+	// int k = HEIGHT / 2;
+	while(y < HEIGHT / 2)
 	{
 		x = 0;
 		while(x < WIDTH)
@@ -245,8 +247,7 @@ void rerender(void *inf)
 		}
 		y++;
 	}
-
-	while(y < HEIGHT)
+	while (y < HEIGHT)
 	{
 		x = 0;
 		while(x < WIDTH)
@@ -256,17 +257,17 @@ void rerender(void *inf)
 		}
 		y++;
 	}
-
-	 x = 0;
-
-	while (info->ray)
+	x = 0;
+	t_ray *tmp = info->ray;
+	while (tmp)
 	{
 		float block = WIDTH / RAYS ;
-		draw_walls(info, x * block);
-		info->ray = info->ray->next;
+		draw_walls(tmp, info, x * block);
+		tmp = tmp->next;
 		x++;
 	}
 	
+	render_minimap(info);
 	// info->der_pos.x = info->player_pos.x + 20 * cos(info->angle);
 	// // info->der_pos.y = info->player_pos.y + 20 * sin(info->angle);
 	// draw_player(info, 0x99FF90, 1);
@@ -360,8 +361,7 @@ float ft_player_angle(char **map2d)
 
 void display_map(t_data *info)
 {
-	info->mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
-	info->mlx.image = mlx_new_image(info->mlx.mlx, WIDTH, HEIGHT);
+	
 	mlx_image_to_window(info->mlx.mlx, info->mlx.image, 0, 0);
 	mlx_loop_hook(info->mlx.mlx, click, info);
 	mlx_loop_hook(info->mlx.mlx, ray, info);
@@ -372,7 +372,10 @@ void display_map(t_data *info)
 t_data	get_info(char **map, int height, int width)
 {
 	t_data info;
-
+	info.mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
+	info.mlx.image = mlx_new_image(info.mlx.mlx, WIDTH, HEIGHT);
+	info.mlx.txt = mlx_load_png("Sources/test.png");
+	info.mlx.txt_image = mlx_texture_to_image(info.mlx.mlx, info.mlx.txt);
 	info.move_speed = 2;
 	info.rotate_speed = 0.05;
 	info.player_pos.x = (ft_player_pos_x(map) * SIZE + SIZE/2) ;
