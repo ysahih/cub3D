@@ -17,34 +17,34 @@ void	put_col(t_data *info, int x, int y, int color)
 
 	// if (info->ray->t == 'H')
 	// // {
-			mlx_put_pixel(info->mlx.image, x, y, 0x0090FF);
 	// // }
 	// 	else
-			// mlx_put_pixel(info->mlx.image, x, y, color);
+			// mlx_put_pixel(info->mlx.image, x, y, 0x0090FF);
+			mlx_put_pixel(info->mlx.image, x, y, color);
 
 	// mlx_resize_image()
 }
 
-int	get_color(t_data *info, int i, int y)
+int	get_color(t_data *info, int *o)
 {
 	int	color;
-	static int x1 = 0;
-	static int x2 = 0;
-	if (info->ray->t == 'H')
-	{
-		if (i * x1 + 3 > info->mlx.txt_image->width)
-			return (0);
-		color = RGBA(info->mlx.txt_image->pixels[i * x1], info->mlx.txt_image->pixels[i * x1 + 1], info->mlx.txt_image->pixels[i * x2 + 2], info->mlx.txt_image->pixels[i * x2 + 3]);
-
-	}
+	int	img_x;
+	// static int x1 = 0;
 	if (info->ray->t == 'V')
-	{
-		x2++;
-		x1 = 0;
-		if (i * x1 + 3 > info->mlx.txt_image->width)
-			return (0);
-		color = RGBA(info->mlx.txt_image->pixels[i * x2], info->mlx.txt_image->pixels[i * x2 + 1], info->mlx.txt_image->pixels[i * x2 + 2], info->mlx.txt_image->pixels[i * x2 + 3]);
-	}
+		img_x =	fmod(info->ray->y , SIZE);
+	else
+		img_x =	fmod(info->ray->x , SIZE);
+
+	int	num = info->mlx.txt_image->width * (*o) + img_x;
+	if ( num + 3 >= info->mlx.txt_image->height * info->mlx.txt_image->width)
+		return (0);
+	unsigned int r = info->mlx.txt_image->pixels[num];
+	unsigned int g = info->mlx.txt_image->pixels[num + 1];
+	unsigned int b = info->mlx.txt_image->pixels[num + 2];
+	unsigned int a = info->mlx.txt_image->pixels[num + 3];
+	if (*o >= info->mlx.txt_image->height)
+		*o = 0;
+	color = RGBA(r, g, b, a);
 	return color;
 }
 
@@ -56,14 +56,18 @@ void	draw_walls(t_ray *ray, t_data *info, float x)
 	int color;
 
 	middle = HEIGHT / 2;
-	wall_height = HEIGHT * SIZE / ray->distance * cos(ray->angle - info->angle);
+	wall_height = HEIGHT * SIZE / ray->distance ;
+	// * cos(ray->angle - info->angle);
 	if (wall_height > HEIGHT)
 		wall_height = HEIGHT;
 	y = middle - wall_height / 2;
 
 	for (int i = 0; i < wall_height; i++){
-		
-		// color = get_color(info, i, y);
+		int o = 0;
+		int		inc;
+		inc = i * wall_height / info->mlx.txt_image->height;
+		color = get_color(info, &o);
+		o += inc;
 		put_col(info, x, y + i, color);
 		// mlx_put_wall(info, x, y + i);
 	}

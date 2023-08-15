@@ -37,6 +37,7 @@ typedef struct s_ray
 
 	float			x;
 	float			y;
+	
 	char			t;
 	int				nb;
 	struct s_ray	*next;

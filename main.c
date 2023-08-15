@@ -375,6 +375,7 @@ t_data	get_info(char **map, int height, int width)
 	info.mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
 	info.mlx.image = mlx_new_image(info.mlx.mlx, WIDTH, HEIGHT);
 	info.mlx.txt = mlx_load_png("Sources/test.png");
+	// mlx_resize_image(info.mlx.image, 32, 32);
 	info.mlx.txt_image = mlx_texture_to_image(info.mlx.mlx, info.mlx.txt);
 	info.move_speed = 2;
 	info.rotate_speed = 0.05;
