@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "iterator": "c"
+        "iterator": "c",
+        "algorithm": "c",
+        "ios": "c"
     }
 }
