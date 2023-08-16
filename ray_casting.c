@@ -48,7 +48,7 @@ void	ray(void *inf)
 		horizontal_ray = horizontal(info, start_angle);
 		if(ft_distance(info, horizontal_ray->x, horizontal_ray->y) > ft_distance(info, vertical_ray->x, vertical_ray->y))
 		{
-			vertical_ray->distance = ft_distance(info, vertical_ray->x, vertical_ray->y) * cos(start_angle - info->angle);
+			vertical_ray->distance = ft_distance(info, vertical_ray->x, vertical_ray->y)  * cos(start_angle - info->angle);
 			vertical_ray->angle = start_angle;
 			vertical_ray->t = 'V';
 			add_rays(&info->ray, vertical_ray);
@@ -58,7 +58,7 @@ void	ray(void *inf)
 		}
 		else
 		{
-			horizontal_ray->distance = ft_distance(info, horizontal_ray->x, horizontal_ray->y) * cos(start_angle - info->angle);
+			horizontal_ray->distance = ft_distance(info, horizontal_ray->x, horizontal_ray->y)  * cos(start_angle - info->angle);
 			horizontal_ray->angle = start_angle;
 			horizontal_ray->t = 'H';
 			add_rays(&info->ray, horizontal_ray);

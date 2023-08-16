@@ -14,7 +14,7 @@
 #define SIZE 32 
 #define	RAYS 1048
 #define WIDTH 1048
-#define HEIGHT 720
+#define HEIGHT 900
 #define MINI 0.5
 
 typedef struct	s_pos
@@ -44,6 +44,7 @@ typedef struct s_ray
 } t_ray;
 typedef struct s_data
 {
+	unsigned int	*texture;
 	char 			**map2d;
 	t_ray			*ray;
 	t_mlx			mlx;
@@ -75,6 +76,9 @@ t_ray	*horizontal(t_data *info, float angle);
 //ray casting utils
 int 	wall(t_data *info, int x, int y);
 void	draw_ray(t_data *info);
+
+//textures
+unsigned int *store_colors(uint8_t *img);
 
 //minimap
 void	render_minimap(t_data *info);

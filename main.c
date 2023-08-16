@@ -261,7 +261,7 @@ void rerender(void *inf)
 	t_ray *tmp = info->ray;
 	while (tmp)
 	{
-		float block = WIDTH / RAYS ;
+		float block = WIDTH / RAYS;
 		draw_walls(tmp, info, x * block);
 		tmp = tmp->next;
 		x++;
@@ -371,12 +371,15 @@ void display_map(t_data *info)
 
 t_data	get_info(char **map, int height, int width)
 {
+
 	t_data info;
+
 	info.mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
 	info.mlx.image = mlx_new_image(info.mlx.mlx, WIDTH, HEIGHT);
-	info.mlx.txt = mlx_load_png("Sources/test.png");
+	info.mlx.txt = mlx_load_png("Sources/ysahih.png");
 	// mlx_resize_image(info.mlx.image, 32, 32);
 	info.mlx.txt_image = mlx_texture_to_image(info.mlx.mlx, info.mlx.txt);
+	// info.texture = store_colors(info.mlx.txt_image->pixels);
 	info.move_speed = 2;
 	info.rotate_speed = 0.05;
 	info.player_pos.x = (ft_player_pos_x(map) * SIZE + SIZE/2) ;
