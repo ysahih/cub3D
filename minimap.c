@@ -18,9 +18,10 @@ void    render_minimap(t_data *info)
 		}
 	draw_player(info, 0x99FF90, 1);
 
+		draw_ray(info);
 	while (info->ray->next)
 	{
-		draw_ray(info);
 		info->ray = info->ray->next;
 	}   
+		draw_ray(info);
 }

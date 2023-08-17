@@ -8,11 +8,10 @@ to get the value of drawing walls increment (width / nb of rays casted);
 after getting the value we render walls depending on how many rays 
 to render the walls we calculate the size of the wall and its start point; */
 
-unsigned int	get_color(t_data *info, t_ray *ray,int offset_y)
+unsigned int	get_color(t_data *info, t_ray *ray, int offset_y)
 {
 	unsigned int color;
 	float	img_x;
-	// static int x1 = 0;
 	if (ray->t == 'V')
 		img_x =	fmod(ray->y, SIZE);
 	else
@@ -40,18 +39,18 @@ void	draw_walls(t_ray *ray, t_data *info, float x)
 	float y;
 	unsigned int color;
 	int		offset_y;
-
+	int	hold = 0;
 	middle = HEIGHT / 2;
 	wall_height = HEIGHT * SIZE / ray->distance;
-	// * cos(ray->angle - info->angle);
 	if (wall_height > HEIGHT)
 		wall_height = HEIGHT;
 	
 	y = middle - wall_height / 2;
-	// printf("%f, %f\n", info->ray->x, info->ray->y);
 	for (int i = 0; i < wall_height; i++){
-		offset_y = i * info->mlx.txt_image->height / wall_height;
-		// if ()
+		if (wall_height == HEIGHT){
+			hold = ((HEIGHT * SIZE / ray->distance) - HEIGHT) / 2;
+		}
+		offset_y = ( (i * info->mlx.txt_image->height)/ (HEIGHT * SIZE / ray->distance) + (hold * info->mlx.txt_image->height)/ (HEIGHT * SIZE / ray->distance));
 		color = get_color(info,ray, offset_y);
 		mlx_put_pixel(info->mlx.image, x, y + i, color);
 	}
