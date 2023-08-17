@@ -60,7 +60,7 @@ static char	**str_count(char **str, const char *s, char c)
 	return (str);
 }
 
-char **ft_read_map2d(char *av, int	*height, int *width)
+char **ft_read_map2d(char *av)
 {
     char	**map2d;
 	char	*map;
@@ -89,8 +89,6 @@ char **ft_read_map2d(char *av, int	*height, int *width)
 	map2d = ft_split(map, '\n');
 	j = ft_strlen(map2d[0]);
 	// printf("%d, %d\n", i, j);
-	*height = i;
-	*width = j;
 	free(map);
 
 	return (map2d);
@@ -369,7 +367,7 @@ void display_map(t_data *info)
 	mlx_loop(info->mlx.mlx);
 }
 
-t_data	get_info(char **map, int height, int width)
+t_data	get_info(char **map)
 {
 
 	t_data info;
@@ -382,11 +380,7 @@ t_data	get_info(char **map, int height, int width)
 	// info.texture = store_colors(info.mlx.txt_image->pixels);
 	info.move_speed = 2;
 	info.rotate_speed = 0.05;
-	info.player_pos.x = (ft_player_pos_x(map) * SIZE + SIZE/2) ;
-	info.player_pos.y = (ft_player_pos_y(map) * SIZE + SIZE/2) ;
-	info.angle = ft_player_angle(map);
-	info.width = width;
-	info.height = height;
+
 	info.map2d = map;
 
 	return info;
@@ -395,12 +389,20 @@ t_data	get_info(char **map, int height, int width)
 int main (int ac, char **av)
 {
 	t_data	info;
+	t_data	info_tmp;
     char	**map2d;
+    char	**map2d_tmp;
 	int		height;
 	int		width;
 
-    map2d = ft_read_map2d(av[1], &height, &width);
-	info = get_info(map2d, height, width);
+    map2d = ft_read_map2d(av[1]);
+	info = get_info(map2d);
+	ft_parsing(&info);
+	info.player_pos.x = (ft_player_pos_x(info.map2d) * SIZE + SIZE/2) ;
+	info.player_pos.y = (ft_player_pos_y(info.map2d) * SIZE + SIZE/2) ;
+	info.angle = ft_player_angle(info.map2d);
+	info.height = ft_len(info.map2d);
+	info.width = ft_strlen(info.map2d[0]);
 	display_map(&info);
     
 }

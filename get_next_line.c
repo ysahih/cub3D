@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:35 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/11 18:15:58 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/17 17:12:41 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_ln_eof(char *line)
 	return (0);
 }
 
-static int	ft_len(char *s)
+static int	ft_slen(char *s)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ static char	*ft_strs(char ***to_stock, char *line)
 	char	*new_line;
 
 	i = 0;
-	len = ft_len(line);
+	len = ft_slen(line);
 	new_line = malloc(len + 1);
 	**to_stock = ft_strdup(ft_strchr(line, '\n'));
 	while (i < len)

@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/25 15:56:29 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/17 17:15:55 by isbarka          ###   ########.fr       */
+/*   Created: 2022/10/29 04:53:35 by isbarka           #+#    #+#             */
+/*   Updated: 2023/08/16 09:45:49 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t			i;
+	unsigned char	*s11;
+	unsigned char	*s22;
 
+	s11 = (unsigned char *)s1;
+	s22 = (unsigned char *)s2;
 	i = 0;
-	while (s[i] != '\0')
+	if (n == 0)
+		return (0);
+	while (s11[i] == s22[i] && i < n - 1 && s11[i] & s22[i])
 	{
 		i++;
 	}
-	return (i);
+	return (s11[i] - s22[i]);
 }
-size_t	ft_len(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != NULL)
-	{
-		i++;
-	}
-	return (i);
-}
-
-
