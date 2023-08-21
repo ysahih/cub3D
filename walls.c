@@ -1,25 +1,10 @@
 #include "cube3d.h"
 
-
-/*  after rendreing floor and ceiling,//
-
-we have to store how many rays are casted
-to get the value of drawing walls increment (width / nb of rays casted);
-after getting the value we render walls depending on how many rays 
-to render the walls we calculate the size of the wall and its start point; */
-
-unsigned int	get_color(t_data *info, t_ray *ray, int offset_y)
+unsigned int	get_color(t_data *info, int img_y, int img_x)
 {
 	unsigned int color;
-	float	img_x;
-	if (ray->t == 'V')
-		img_x =	fmod(ray->y, SIZE);
-	else
-		img_x =	fmod(ray->x, SIZE);
-	img_x /= SIZE;
-	img_x *= info->mlx.txt_image->width;
-	int	index = (offset_y * info->mlx.txt_image->width + (int)img_x) * 4;
 
+	int	index = (img_y * info->mlx.txt_image->width + img_x) * 4;
 	if (index + 3 >= info->mlx.txt_image->height * info->mlx.txt_image->width * 4)
 		return (0);
 	unsigned int r = info->mlx.txt_image->pixels[index];
@@ -30,28 +15,41 @@ unsigned int	get_color(t_data *info, t_ray *ray, int offset_y)
     return color;
 }
 
-
+float	image_offset(t_data *info, t_ray *ray)
+{
+	float	img_x;
+	if (ray->type == 'V')
+		img_x =	fmod(ray->y, SIZE);
+	else
+		img_x =	fmod(ray->x, SIZE);
+	img_x /= SIZE;
+	img_x *= info->mlx.txt_image->width;
+	return (img_x);
+}
 
 void	draw_walls(t_ray *ray, t_data *info, float x)
 {
-	int wall_height;
-	float middle;
-	float y;
 	unsigned int color;
-	int		offset_y;
+	int wall_height;
+	int h;
+	int middle;
+	float y;
+	int		img_y;
+	int	img_x;
+	
 	int	hold = 0;
 	middle = HEIGHT / 2;
-	wall_height = HEIGHT * SIZE / ray->distance;
+	wall_height = (HEIGHT * 20) / (ray->distance * cos(ray->angle - info->angle));
+	h = wall_height;
 	if (wall_height > HEIGHT)
 		wall_height = HEIGHT;
-	
+	img_x = image_offset(info, ray);
 	y = middle - wall_height / 2;
 	for (int i = 0; i < wall_height; i++){
-		if (wall_height == HEIGHT){
-			hold = ((HEIGHT * SIZE / ray->distance) - HEIGHT) / 2;
-		}
-		offset_y = ( (i * info->mlx.txt_image->height)/ (HEIGHT * SIZE / ray->distance) + (hold * info->mlx.txt_image->height)/ (HEIGHT * SIZE / ray->distance));
-		color = get_color(info,ray, offset_y);
+		if (wall_height == HEIGHT)
+			hold = (h - HEIGHT) / 2;
+		img_y = ((i * info->mlx.txt_image->height)/ h + (hold * info->mlx.txt_image->height)/ h);
+		color = get_color(info,img_y, img_x);
 		mlx_put_pixel(info->mlx.image, x, y + i, color);
 	}
 }

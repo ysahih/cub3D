@@ -7,15 +7,18 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
- #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
+ #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
 #define SIZE 32 
 #define	RAYS 1048
 #define WIDTH 1048
-#define HEIGHT 900
-#define MINI 0.5
+#define HEIGHT 800
+
+#define M_WIDTH	200
+#define M_HEIGHT 130 
+
 
 typedef struct	s_pos
 {
@@ -34,12 +37,9 @@ typedef struct s_ray
 {
 	float			distance;
 	float		 	angle;
-
 	float			x;
 	float			y;
-	
-	char			t;
-	int				nb;
+	char			type;
 	struct s_ray	*next;
 } t_ray;
 

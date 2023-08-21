@@ -1,27 +1,67 @@
 #include "cube3d.h"
 
-void    ft_mlx_put_pixel(mlx_image_t *img, int j, int i, int color)
+void	draw_direction(t_data *info, t_ray *ray)
 {
-	for (int y=0; y<SIZE; y++)
-		for(int x=0; x<SIZE; x++)
-			mlx_put_pixel(img, (j+ x) * MINI , (i + y) * MINI , color);
+	int		x = (M_WIDTH/2) + 30;
+	int		y = (M_HEIGHT/2) + 20;
+	int a;
+	int b;
+	float angle = ray->angle;
+	for (int i = 0; i < 25; i++)
+	{
+		a = i * cos(angle);
+		b = i * sin(angle);
+		mlx_put_pixel(info->mlx.image, x + a, y + b, 0x87CEEB);
+	}
+}
+
+void	render_player(t_data *info)
+{
+	t_ray *tmp = info->ray;
+	int	i = 0;
+	draw_direction(info, tmp);
+	while (tmp->next)
+	{
+		if (i == RAYS / 2)
+			draw_direction(info, tmp);
+		tmp = tmp->next;
+		i++;
+	}
+	draw_direction(info, tmp);
+}
+
+bool	check_walls(t_data *info, int i, int j)
+{
+	if (i > 0 && i/SIZE < info->height && j > 0 && j/SIZE < info->width)
+		if (info->map2d[i/SIZE][j/SIZE] == '1')
+			return (true);
+	return (false);
 }
 
 void    render_minimap(t_data *info)
 {
-	for (int i=0; i<info->height; i++)
-		for (int j=0; j<info->width; j++){
-			if (info->map2d[i][j] == '1')
-				ft_mlx_put_pixel(info->mlx.image, j  * SIZE, i * SIZE , 0x000FF);
-			else
-				ft_mlx_put_pixel(info->mlx.image, j* SIZE, i* SIZE, 0x0900F);
-		}
-	draw_player(info, 0x99FF90, 1);
 
-		draw_ray(info);
-	while (info->ray->next)
+	int	start_x = 30;
+	int	start_y = 20;
+	
+	t_pos p;
+	p.y = info->player_pos.y;
+	p.x = info->player_pos.x;
+
+	int	i = p.y + (M_HEIGHT / 2);
+
+	for (int y = M_HEIGHT; y> 0; y--)
 	{
-		info->ray = info->ray->next;
-	}   
-		draw_ray(info);
+		int	j = p.x + (M_WIDTH / 2);
+		for (int x=M_WIDTH;x> 0; x--)
+		{
+			if (check_walls(info, i, j))
+				mlx_put_pixel(info->mlx.image, 30 + x, 20 + y, 0xFFFFFF);
+			else
+				mlx_put_pixel(info->mlx.image, 30 + x, 20 + y, 0xFF0000);
+			j--;
+		}
+		i--;
+	}
+	render_player(info);
 }

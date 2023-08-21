@@ -20,7 +20,6 @@ void	add_rays(t_ray **rays, t_ray *new_ray)
 		*rays = new_ray;
 		return ;
 	}
-	// (*rays)->nb++;
 	last_ray = ft_lstlast(*rays);
 	last_ray->next = new_ray;
 }
@@ -32,7 +31,6 @@ float ft_distance(t_data *info, float x, float y)
 
 void	ray(void *inf)
 {
-	int zbi_kbiiiir = 0;
 	t_data	*info;
 	t_ray	*horizontal_ray;
 	t_ray	*vertical_ray;
@@ -48,24 +46,21 @@ void	ray(void *inf)
 		horizontal_ray = horizontal(info, start_angle);
 		if(ft_distance(info, horizontal_ray->x, horizontal_ray->y) > ft_distance(info, vertical_ray->x, vertical_ray->y))
 		{
-			vertical_ray->distance = ft_distance(info, vertical_ray->x, vertical_ray->y)  * cos(start_angle - info->angle);
+			vertical_ray->distance = ft_distance(info, vertical_ray->x, vertical_ray->y) ;
 			vertical_ray->angle = start_angle;
-			vertical_ray->t = 'V';
+			vertical_ray->type = 'V';
 			add_rays(&info->ray, vertical_ray);
-			// info->ray->nb = 0;
 			free(horizontal_ray);
 
 		}
 		else
 		{
-			horizontal_ray->distance = ft_distance(info, horizontal_ray->x, horizontal_ray->y)  * cos(start_angle - info->angle);
+			horizontal_ray->distance = ft_distance(info, horizontal_ray->x, horizontal_ray->y);
 			horizontal_ray->angle = start_angle;
-			horizontal_ray->t = 'H';
+			horizontal_ray->type = 'H';
 			add_rays(&info->ray, horizontal_ray);
 			free(vertical_ray);
 		}
 		start_angle += 0.001;
-		// i++;
 	}
-	// printf("%d\n", info->ray->nb);
 }
