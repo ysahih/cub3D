@@ -157,6 +157,8 @@ int wall_up(t_data *info, int x, int y)
 void click(void *inf)
 {
 	t_data *info = inf;
+	int	new_x;
+	int	new_y;
 
 	if (mlx_is_key_down(info->mlx.mlx, MLX_KEY_ESCAPE))
 		exit(0);
@@ -224,12 +226,15 @@ void rerender(void *inf)
 	float x = 0;
 	int y = 0;
 	// int k = HEIGHT / 2;
+
+	unsigned int	c_color = RGB(info->sources.c_r, info->sources.c_g, info->sources.c_b);
+	unsigned int	f_color = RGB(info->sources.f_r, info->sources.f_g, info->sources.f_b);
 	while(y < HEIGHT / 2)
 	{
 		x = 0;
 		while(x < WIDTH)
 		{
-			mlx_put_pixel(info->mlx.image, x, y, 0x87CEEB);
+			mlx_put_pixel(info->mlx.image, x, y, c_color);
 			x++;
 		}
 		y++;
@@ -239,7 +244,7 @@ void rerender(void *inf)
 		x = 0;
 		while(x < WIDTH)
 		{
-			mlx_put_pixel(info->mlx.image, x, y, 0x000000);
+			mlx_put_pixel(info->mlx.image, x, y, f_color);
 			x++;
 		}
 		y++;
@@ -350,8 +355,8 @@ t_data	get_info(char **map)
 
 	info.mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
 	info.mlx.image = mlx_new_image(info.mlx.mlx, WIDTH, HEIGHT);
-	info.mlx.txt = mlx_load_png("Sources/ysahih.png");
-	info.mlx.txt_image = mlx_texture_to_image(info.mlx.mlx, info.mlx.txt);
+	// info.mlx.txt = mlx_load_png("Sources/wall.png");
+	// info.mlx.txt_image = mlx_texture_to_image(info.mlx.mlx, info.mlx.txt);
 	info.move_speed = 2;
 	info.rotate_speed = 0.05;
 
@@ -371,12 +376,13 @@ int main (int ac, char **av)
 
     map2d = ft_read_map2d(av[1]);
 	info = get_info(map2d);
-	// ft_parsing(&info);
+	ft_parsing(&info);
 	info.player_pos.x = (ft_player_pos_x(info.map2d) * SIZE + SIZE/2) ;
 	info.player_pos.y = (ft_player_pos_y(info.map2d) * SIZE + SIZE/2) ;
 	info.angle = ft_player_angle(info.map2d);
 	info.height = ft_len(info.map2d);
 	info.width = ft_strlen(info.map2d[0]);
+	// printf("-%s-\n", info.sources.we );
 	display_map(&info);
     
 }

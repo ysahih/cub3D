@@ -10,6 +10,7 @@
  #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
+#define RGB(r, g, b) (r << 16 | g << 8 | b)
 
 #define SIZE 32 
 #define	RAYS 1048
@@ -102,6 +103,7 @@ void	render_minimap(t_data *info);
 void	draw_player(t_data *info, int color,int i);
 //walls
 void    draw_walls(t_ray *ray, t_data *info, float x);
+unsigned int	get_color(mlx_image_t *image, int img_y, int img_x);
 
 //parsing
 typedef struct s_letters
@@ -120,5 +122,7 @@ void ft_parsing_tmp(t_data *info);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 int	ft_atoi(const char *str);
 size_t	ft_len(char **s);
+
+
 
 #endif

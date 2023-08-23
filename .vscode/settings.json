@@ -2,6 +2,7 @@
     "files.associations": {
         "iterator": "c",
         "algorithm": "c",
-        "ios": "c"
+        "ios": "c",
+        "complex": "c"
     }
 }
