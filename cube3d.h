@@ -29,7 +29,10 @@ typedef struct	s_pos
 typedef struct  s_mlx
 {
 	mlx_texture_t *txt;
-	mlx_image_t	*txt_image;
+	mlx_image_t	*no_image;
+	mlx_image_t	*so_image;
+	mlx_image_t	*ea_image;
+	mlx_image_t	*we_image;
 	mlx_image_t	*image;
 	mlx_t		*mlx;
 } t_mlx;

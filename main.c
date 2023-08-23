@@ -360,14 +360,30 @@ t_data	get_info(char **map)
 
 	info.mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
 	info.mlx.image = mlx_new_image(info.mlx.mlx, WIDTH, HEIGHT);
-	// info.mlx.txt = mlx_load_png("Sources/wall.png");
-	// info.mlx.txt_image = mlx_texture_to_image(info.mlx.mlx, info.mlx.txt);
 	info.move_speed = 2;
 	info.rotate_speed = 0.05;
 
 	info.map2d = map;
 
 	return info;
+}
+
+mlx_image_t	*load_png(t_data *info, char *s)
+{
+	mlx_texture_t	*txt;
+	mlx_image_t	*image;
+
+	txt = mlx_load_png(s);
+	image = mlx_texture_to_image(info->mlx.mlx, txt);
+	return (image);
+}
+
+void	get_textures(t_data *info)
+{
+	info->mlx.ea_image = load_png(info, info->sources.ea);
+	info->mlx.so_image = load_png(info, info->sources.so);
+	info->mlx.we_image = load_png(info, info->sources.we);
+	info->mlx.no_image = load_png(info, info->sources.no);
 }
 
 int main (int ac, char **av)
@@ -382,12 +398,13 @@ int main (int ac, char **av)
     map2d = ft_read_map2d(av[1]);
 	info = get_info(map2d);
 	ft_parsing(&info);
+	get_textures(&info);
 	info.player_pos.x = (ft_player_pos_x(info.map2d) * SIZE + SIZE/2) ;
 	info.player_pos.y = (ft_player_pos_y(info.map2d) * SIZE + SIZE/2) ;
 	info.angle = ft_player_angle(info.map2d);
 	info.height = ft_len(info.map2d);
 	info.width = ft_strlen(info.map2d[0]);
-	// printf("-%s-\n", info.sources.we );
+	// printf("-%s-\n", info.sources.no );
 	display_map(&info);
     
 }

@@ -473,12 +473,12 @@ void remove_space_lines(t_data *info)
         }
         i++;
     }
-    i = 0;
-    while(new_array[i])
-    {
-        printf("%s++\n", new_array[i]);
-        i++;
-    }
+    // i = 0;
+    // while(new_array[i])
+    // {
+    //     printf("%s++\n", new_array[i]);
+    //     i++;
+    // }
 
     info->map2d = new_array;
 
