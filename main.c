@@ -232,14 +232,14 @@ void rerender(void *inf)
 	int y = 0;
 	// int k = HEIGHT / 2;
 
-	unsigned int	c_color = RGB(info->sources.c_r, info->sources.c_g, info->sources.c_b);
-	unsigned int	f_color = RGB(info->sources.f_r, info->sources.f_g, info->sources.f_b);
+	unsigned int	c_color = RGBA(info->sources.c_r, info->sources.c_g, info->sources.c_b,255);
+	unsigned int	f_color = RGBA(info->sources.f_r, info->sources.f_g, info->sources.f_b, 255);
 	while(y < HEIGHT / 2)
 	{
 		x = 0;
 		while(x < WIDTH)
 		{
-			mlx_put_pixel(info->mlx.image, x, y, 0x87CEEB);
+			mlx_put_pixel(info->mlx.image, x, y, c_color);
 			x++;
 		}
 		y++;

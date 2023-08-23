@@ -43,7 +43,7 @@ void	render_player(t_data *info)
 {
 	t_ray *tmp = info->ray;
 	int	i = 0;
-	draw_direction(info, tmp);
+	// draw_direction(info, tmp);
 	while (tmp->next)
 	{
 		if (i == RAYS / 2)
@@ -51,7 +51,7 @@ void	render_player(t_data *info)
 		tmp = tmp->next;
 		i++;
 	}
-	draw_direction(info, tmp);
+	// draw_direction(info, tmp);
 	draw_circle(info);
 }
 
