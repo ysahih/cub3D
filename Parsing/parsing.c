@@ -13,7 +13,7 @@ char *ft_so(t_data *info)
     {
         if(ft_strncmp(info->map2d[i], "SO ", 3) == 0)
         {
-            return(&(info->map2d[i][3]));
+            return(ft_strdup(&(info->map2d[i][3])));
         }
         i++;
     }
@@ -28,7 +28,7 @@ char *ft_we(t_data *info)
     {
         if(ft_strncmp(info->map2d[i], "WE ", 3) == 0)
         {
-            return(&(info->map2d[i][3]));
+            return(ft_strdup(&(info->map2d[i][3])));
         }
         i++;
     }
@@ -43,7 +43,7 @@ char *ft_ea(t_data *info)
     {
         if(ft_strncmp(info->map2d[i], "EA ", 3) == 0)
         {
-            return(&(info->map2d[i][3]));
+            return(ft_strdup(&(info->map2d[i][3])));
         }
         i++;
     }
@@ -58,7 +58,7 @@ char *ft_no(t_data *info)
     {
         if(ft_strncmp(info->map2d[i], "NO ", 3) == 0)
         {
-            return(&(info->map2d[i][3]));
+            return(ft_strdup(&(info->map2d[i][3])));
         }
         i++;
     }
@@ -73,7 +73,7 @@ char *ft_f(t_data *info)
     {
         if(ft_strncmp(info->map2d[i], "F ", 2) == 0)
         {
-            return(&(info->map2d[i][2]));
+            return(ft_strdup(&(info->map2d[i][2])));
         }
         i++;
     }
@@ -88,7 +88,7 @@ char *ft_c(t_data *info)
     {
         if(ft_strncmp(info->map2d[i], "C ", 2) == 0)
         {
-            return(&(info->map2d[i][2]));
+            return(ft_strdup(&(info->map2d[i][2])));
         }
         i++;
     }

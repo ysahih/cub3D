@@ -88,7 +88,6 @@ char **ft_read_map2d(char *av)
 	}
 	map2d = ft_split(map, '\n');
 	j = ft_strlen(map2d[0]);
-	// printf("%d, %d\n", i, j);
 	free(map);
 
 	return (map2d);
@@ -131,7 +130,6 @@ int ft_heightlen(char **map2d)
 
 int wall(t_data *info, int x, int y)
 {
-	// printf("(i = %d, j = %d)\n", y/SIZE,x/SIZE);
 	
 	x /= SIZE;
 	y /= SIZE;
@@ -142,17 +140,7 @@ int wall(t_data *info, int x, int y)
 			return 1;
 	return 0;
 }
-int wall_up(t_data *info, int x, int y)
-{
-	x /= SIZE;
-	y /= SIZE;
-	if (x >= info->width || y >= info->height || x < 0 || y < 0)
-		return (1);
-	
-	if(info->map2d[y][x] == '1')
-			return 1;
-	return 0;
-}
+
 
 void click(void *inf)
 {
@@ -170,6 +158,22 @@ void click(void *inf)
 			info->player_pos.y = info->player_pos.y + (info->move_speed) * sin(info->angle);
 		}
 	}
+	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_A))
+	{
+		if(wall(info, info->player_pos.x + (info->move_speed) * cos(info->angle - M_PI/2),info->player_pos.y + (info->move_speed) * sin(info->angle - M_PI/2)) == 0)
+		{
+			info->player_pos.x = info->player_pos.x + (info->move_speed) * cos(info->angle - M_PI/2);
+			info->player_pos.y = info->player_pos.y + (info->move_speed) * sin(info->angle - M_PI/2);
+		}
+	}
+	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_D))
+	{
+		if(wall(info, info->player_pos.x + (info->move_speed) * cos(info->angle + M_PI/2),info->player_pos.y + (info->move_speed) * sin(info->angle + M_PI/2)) == 0)
+		{
+			info->player_pos.x = info->player_pos.x + (info->move_speed) * cos(info->angle + M_PI/2);
+			info->player_pos.y = info->player_pos.y + (info->move_speed) * sin(info->angle + M_PI/2);
+		}
+	}
 	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_DOWN))
 	{
 		if(wall(info, info->player_pos.x - (info->move_speed) * cos(info->angle), info->player_pos.y - (info->move_speed) * sin(info->angle)) == 0)
@@ -178,6 +182,7 @@ void click(void *inf)
 			info->player_pos.y = info->player_pos.y - (info->move_speed) * sin(info->angle);
 		}
 	}
+
 	if(mlx_is_key_down(info->mlx.mlx, MLX_KEY_LEFT))
 	{
 		float angle;
