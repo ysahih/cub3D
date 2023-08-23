@@ -1,58 +1,90 @@
 #include "cube3d.h"
 
-
-/*  after rendreing floor and ceiling,//
-
-we have to store how many rays are casted
-to get the value of drawing walls increment (width / nb of rays casted);
-after getting the value we render walls depending on how many rays 
-to render the walls we calculate the size of the wall and its start point; */
-
-unsigned int	get_color(t_data *info, t_ray *ray,int offset_y)
+unsigned int	get_color(mlx_image_t *image, int img_y, int img_x)
 {
-	unsigned int color;
+	unsigned int	color;
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	unsigned int	a;
+	int				index;
+
+	index = (img_y * image->width + img_x) * 4;
+	if (index + 3 >= image->height * image->width * 4)
+		return (0);
+	r = image->pixels[index];
+	g = image->pixels[index + 1];
+	b = image->pixels[index + 2];
+	a = image->pixels[index + 3];
+	color = RGBA(r, g, b, a);
+	return color;
+}
+
+float	image_offset(mlx_image_t *image, t_ray *ray)
+{
 	float	img_x;
-	// static int x1 = 0;
-	if (ray->t == 'V')
+
+	if (ray->type == 'V')
 		img_x =	fmod(ray->y, SIZE);
 	else
 		img_x =	fmod(ray->x, SIZE);
 	img_x /= SIZE;
-	img_x *= info->mlx.txt_image->width;
-	int	index = (offset_y * info->mlx.txt_image->width + (int)img_x) * 4;
-
-	if (index + 3 >= info->mlx.txt_image->height * info->mlx.txt_image->width * 4)
-		return (0);
-	unsigned int r = info->mlx.txt_image->pixels[index];
-	unsigned int g = info->mlx.txt_image->pixels[index + 1];
-	unsigned int b = info->mlx.txt_image->pixels[index + 2];
-	unsigned int a = info->mlx.txt_image->pixels[index + 3];
-    color = RGBA(r, g, b, a);
-    return color;
+	img_x *= image->width;
+	return (img_x);
 }
 
+mlx_image_t	*get_image(t_data *info, t_ray *ray)
+{
+	mlx_image_t	*image;
 
+	if (ray->type == 'V')
+	{
+		if (ray->angle > -M_PI/2 && ray->angle < M_PI/2)
+			image = info->mlx.ea_image;
+		if (ray->angle <= -M_PI || ray->angle >= M_PI
+			|| (ray->angle >= -M_PI && ray->angle < -M_PI / 2)
+				|| (ray->angle <= M_PI && ray->angle > M_PI / 2))
+			image = info->mlx.we_image;
+	} 
+	if (ray->type == 'H')
+	{
+	 	if (ray->angle < -M_PI|| (ray->angle >= 0 && ray->angle <= M_PI))
+			image = info->mlx.no_image;
+		if (ray->angle >= M_PI || (ray->angle < 0 && ray->angle > -M_PI))
+			image = info->mlx.so_image;
+	}
+	return (image);
+}
 
 void	draw_walls(t_ray *ray, t_data *info, float x)
 {
-	int wall_height;
-	float middle;
-	float y;
-	unsigned int color;
-	int		offset_y;
+	mlx_image_t		*image;
+	unsigned int	color;
+	int				wall_height;
+	int				h;
+	int				middle;
+	float			y;
+	int				img_y;
+	int				img_x;
+	int				hold;
+	int				i;
 
+	i = -1;
+	hold = 0;
+	image = get_image(info, ray);
 	middle = HEIGHT / 2;
-	wall_height = HEIGHT * SIZE / ray->distance;
-	// * cos(ray->angle - info->angle);
+	wall_height = (HEIGHT * 20) / (ray->distance * cos(ray->angle - info->angle));
+	h = wall_height;
 	if (wall_height > HEIGHT)
 		wall_height = HEIGHT;
-	
+	img_x = image_offset(image, ray);
 	y = middle - wall_height / 2;
-	// printf("%f, %f\n", info->ray->x, info->ray->y);
-	for (int i = 0; i < wall_height; i++){
-		offset_y = i * info->mlx.txt_image->height / wall_height;
-		// if ()
-		color = get_color(info,ray, offset_y);
+	while (++i < wall_height)
+	{
+		if (wall_height == HEIGHT)
+			hold = (h - HEIGHT) / 2;
+		img_y = ((i * image->height)/ h + (hold * image->height)/ h);
+		color = get_color(image,img_y, img_x);
 		mlx_put_pixel(info->mlx.image, x, y + i, color);
 	}
 }

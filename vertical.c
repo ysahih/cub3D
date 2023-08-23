@@ -3,42 +3,47 @@
 float	first_y(t_data *info, float angle, float x)
 {
 	float	distance;
-	float	opp;
+	float	o;
 
 	distance = x - info->player_pos.x;
-	opp = tan(angle) * distance;
-	return (info->player_pos.y + opp);
+	o = tan(angle) * distance;
+	return (info->player_pos.y + o);
 }
 
 float	left_first_y(t_data *info, float angle, float x)
 {
 	float	distance;
-	float	opp;
+	float	o;
 
 	distance = info->player_pos.x - x;
-	opp = distance * tan(angle);
-	return (info->player_pos.y - opp);
+	o = distance * tan(angle);
+	return (info->player_pos.y - o);
 }
 
-float left_secnd_y(t_ray *ray, float angle, float y)
+float	left_secnd_y(t_ray *ray, float angle, float y)
 {
-	float o = SIZE * tan(angle);
+	float	o;
+
+	o = SIZE * tan(angle);
 	return(o + ray->y);
 }
+
 float right_secnd_y(t_ray *ray, float angle, float y)
 {
-	float o = SIZE * tan(angle);
+	float	o;
+
+	o = SIZE * tan(angle);
 	return(ray->y - o);
 }
 
 
 t_ray	*vertical(t_data *info, float angle)
 {
-	float	x = 0;;
+	float	x;
 	float	y;
+	t_ray	*ray;
 
-	t_ray *ray = malloc(sizeof(t_ray));
-
+	ray = malloc(sizeof(t_ray));
 	if (angle >= - M_PI / 2 && angle <= M_PI / 2)
 	{
 		x = floor(info->player_pos.x / SIZE) * SIZE + SIZE ;
@@ -53,7 +58,6 @@ t_ray	*vertical(t_data *info, float angle)
 		ray->x = x;
 		ray->y = y;
 	}
-	
 	while((angle >= - M_PI / 2 && angle <= M_PI / 2) && wall(info, ray->x, ray->y) == 0)
 	{
 		ray->x += SIZE;

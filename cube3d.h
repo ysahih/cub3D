@@ -10,12 +10,16 @@
  #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
+#define RGB(r, g, b) (r << 16 | g << 8 | b)
 
 #define SIZE 32 
 #define	RAYS 1048
 #define WIDTH 1048
-#define HEIGHT 900
-#define MINI 0.5
+#define HEIGHT 800
+
+#define M_WIDTH	200
+#define M_HEIGHT 130 
+
 
 typedef struct	s_pos
 {
@@ -25,7 +29,10 @@ typedef struct	s_pos
 typedef struct  s_mlx
 {
 	mlx_texture_t *txt;
-	mlx_image_t	*txt_image;
+	mlx_image_t	*no_image;
+	mlx_image_t	*so_image;
+	mlx_image_t	*ea_image;
+	mlx_image_t	*we_image;
 	mlx_image_t	*image;
 	mlx_t		*mlx;
 } t_mlx;
@@ -34,14 +41,27 @@ typedef struct s_ray
 {
 	float			distance;
 	float		 	angle;
-
 	float			x;
 	float			y;
-	
-	char			t;
-	int				nb;
+	char			type;
 	struct s_ray	*next;
 } t_ray;
+
+typedef struct s_sources
+{
+	char *no;
+	char *so;
+	char *we;
+	char *ea;
+	int f_r;
+	int f_g;
+	int f_b;
+	int c_r;
+	int c_g;
+	int c_b;
+
+} t_sources;
+
 typedef struct s_data
 {
 	unsigned int	*texture;
@@ -53,6 +73,7 @@ typedef struct s_data
 	int				width; // row
 	int				height; // col
 	float 			move_speed;
+	t_sources		sources;
 	float 			rotate_speed;
 	float 			angle;
 }   t_data;
@@ -85,5 +106,26 @@ void	render_minimap(t_data *info);
 void	draw_player(t_data *info, int color,int i);
 //walls
 void    draw_walls(t_ray *ray, t_data *info, float x);
+unsigned int	get_color(mlx_image_t *image, int img_y, int img_x);
+
+//parsing
+typedef struct s_letters
+{
+	int n;
+	int s;
+	int e;
+	int w;
+	int zero;
+	int one;
+}   t_letters;
+
+void ft_parsing(t_data *info);
+void ft_parsing_tmp(t_data *info);
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int	ft_atoi(const char *str);
+size_t	ft_len(char **s);
+
+
 
 #endif

@@ -3,9 +3,10 @@
 float	down_first_x(t_data *info, float angle, float y)
 {
 	float	distance;
+	float	o;
 
 	distance = y - info->player_pos.y;
-	float o = distance / tan(angle);
+	o = distance / tan(angle);
 	return (o + info->player_pos.x);
 
 	return (0);
@@ -14,21 +15,25 @@ float	down_first_x(t_data *info, float angle, float y)
 float	up_first_x(t_data *info, float angle, float y)
 {
 	float	distance;
+	float	o;
 
 	distance = (info->player_pos.y - y);
-	float o = distance / tan(angle);
+	o = distance / tan(angle);
 		return (info->player_pos.x - o);
 }
 
 float	down_secnd_x(t_ray *ray, float angle, float y)
 {
-	float o = SIZE / tan(angle);
+	float	o;
+
+	o = SIZE / tan(angle);
 	return(ray->x + o);
 }
 
 float up_secnd_x(t_ray *ray, float angle, float y)
 {
-	float o = SIZE / tan(angle);
+	float	o;
+	o = SIZE / tan(angle);
 	return(ray->x - o);
 }
 

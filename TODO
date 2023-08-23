@@ -1,2 +1,3 @@
-have not done yet :
-    walls 
+check the map[y][new_x]
+if valid change x, and
+map[new_y][x]
