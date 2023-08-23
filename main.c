@@ -239,7 +239,7 @@ void rerender(void *inf)
 		x = 0;
 		while(x < WIDTH)
 		{
-			mlx_put_pixel(info->mlx.image, x, y, c_color);
+			mlx_put_pixel(info->mlx.image, x, y, 0x87CEEB);
 			x++;
 		}
 		y++;

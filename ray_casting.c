@@ -34,11 +34,12 @@ void	ray(void *inf)
 	t_data	*info;
 	t_ray	*horizontal_ray;
 	t_ray	*vertical_ray;
+	float	start_angle;
+	float	end_angle;
 
 	info = inf;
-	float	start_angle = info->angle - (30 * M_PI / 180);
-	float	end_angle = info->angle + (30 * M_PI / 180);
-	// int i = 0
+	start_angle = info->angle - (30 * M_PI / 180);
+	end_angle = info->angle + (30 * M_PI / 180);
 	info->ray = NULL;
 	while (start_angle <= end_angle)
 	{
