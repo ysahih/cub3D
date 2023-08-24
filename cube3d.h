@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
- #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
+ #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
@@ -119,12 +119,58 @@ typedef struct s_letters
 	int one;
 }   t_letters;
 
+
+typedef struct s_check
+{
+	int tmp_i;
+    int tmp_j;
+    int check[4];
+}   t_check;
+
 void ft_parsing(t_data *info);
 void ft_parsing_tmp(t_data *info);
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 int	ft_atoi(const char *str);
 size_t	ft_len(char **s);
+void ft_error();
+void check_av(char *av);
+void check_map(char *map);
+char	**ft_split_one(const char *s, char c);
+void check_empty_line(char **map2d1);
+char *ft_so(t_data *info);
+char *ft_we(t_data *info);
+char *ft_ea(t_data *info);
+char *ft_no(t_data *info);
+char *ft_f(t_data *info);
+char *ft_c(t_data *info);
+void check_two_camas(char *str);
+char *first_cama(char *str);
+void ft_check_rgb(char *str, char c, t_data *info);
+void check_arguments(t_data *info);
+void ft_transform_to_spaces(t_data *info, int i);
+void ft_arguments_to_space(t_data *info);
+void check_under_map(t_data *info, int i);
+void argument_under_map(t_data *info);
+void add_spaces(t_data *info, int longest);
+void ft_rect(t_data *info);
+void ft_check_two(int i, int j,  t_data *info, t_letters *letters);
+void ft_check_one(int i, int j,  t_data *info, t_letters *letters);
+void    ft_init_zero(t_letters *letters, int *i, int *j);
+void ft_check_letters(t_data *info);
+void ft_check_character3(t_check *check);
+void ft_check_character2(t_data *info, int i, int j, t_check *check);
+void ft_check_character1(t_data *info, int i, int j, t_check *check);
+void ft_check_character(t_data *info, int i, int j);
+void check_inside(t_data *info);
+int check_all_spaces(char *str);
+int ft_lines_to_alloc(char **map2d);
+void remove_space_lines(t_data *info);
+void check_av(char *av);
+void check_map(char *map);
+void check_empty_line1(char **map2d1, int i, int first_line_index, int last_line_index);
+void check_empty_line(char **map2d1);
+void ft_parsing(t_data *info);
 
 
 

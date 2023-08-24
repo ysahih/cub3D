@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:26 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/11 18:15:48 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/23 21:54:57 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-static char	*ft_error(const char *s1, const char *s2)
+static char	*ft_errorr(const char *s1, const char *s2)
 {
 	if (!s1 && !s2)
 		return (0);
@@ -32,7 +32,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	j = 0;
 	if (!s1 || !s2)
-		return (ft_error(s1, s2));
+		return (ft_errorr(s1, s2));
 	to_return = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!to_return)
 		return (0);
