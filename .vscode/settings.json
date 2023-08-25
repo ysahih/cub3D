@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "iterator": "c",
+        "algorithm": "c",
+        "ios": "c",
+        "complex": "c",
+        "type_traits": "c"
+    }
+}

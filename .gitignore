@@ -6,7 +6,11 @@
 *.ko
 *.obj
 *.elf
-
+a.out
+.tldr
+cub3d
+a.out.dSYM\
+a.out.dSYM/
 # Linker output
 *.ilk
 *.map
