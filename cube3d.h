@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
- #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
+ #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
@@ -189,6 +189,10 @@ char 			*ft_so(t_data *info);
 char 			*ft_we(t_data *info);
 char 			*ft_ea(t_data *info);
 char 			*ft_no(t_data *info);
+void			ft_so_one(t_data *info);
+void			ft_we_one(t_data *info);
+void			ft_ea_one(t_data *info);
+void			ft_no_one(t_data *info);
 char 			*ft_f(t_data *info);
 char 			*ft_c(t_data *info);
 void 			check_two_camas(char *str);

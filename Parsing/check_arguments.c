@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:17:59 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:09:28 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ void	check_arguments(t_data *info)
 	info->sources.so = ft_so(info);
 	info->sources.we = ft_we(info);
 	info->sources.ea = ft_ea(info);
+	ft_no_one(info);
+	ft_so_one(info);
+	ft_we_one(info);
+	ft_ea_one(info);
 	f = ft_f(info);
 	c = ft_c(info);
 	ft_check_rgb(f, 'f', info);
