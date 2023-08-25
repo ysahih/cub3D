@@ -2,91 +2,98 @@
 
 void	draw_direction(t_data *info, t_ray *ray)
 {
-	int		x = (M_WIDTH/2) + 30;
-	int		y = (M_HEIGHT/2) + 20;
-	int a;
-	int b;
-	float angle = ray->angle;
-	for (int i = 0; i < 20; i++)
+	int	x;
+	int	y;
+	int	a;
+	int	b;
+	int	i;
+
+	i = 0; 
+	y = (M_HEIGHT / 2) + 20;
+	x = (M_WIDTH / 2) + 30;
+	while (i < 20)
 	{
-		a = i * cos(angle);
-		b = i * sin(angle);
+		a = i * cos(info->angle);
+		b = i * sin(info->angle);
 		mlx_put_pixel(info->mlx.image, x + a, y + b, 0xFFF);
+		i++;
 	}
 }
 
 void	draw_circle(t_data *info)
 {
-	int center_x = M_WIDTH / 2 + 30;
-	int center_y = M_HEIGHT / 2 + 20;
-	int		distance;
-	int	i;
-	int	j;
-	float	angle = 0;
+	int	center_x;
+	int	center_y;
+	int	radius;
+	int	x;
+	int	y;
 
-	int	radius = 5;
-
-	int x, y;
-
-    for (x = center_x - radius; x <= center_x + radius; x++) {
-        for (y = center_y - radius; y <= center_y + radius; y++) {
-            int dx = x - center_x;
-            int dy = y - center_y;
-            if (dx * dx + dy * dy <= radius * radius) {
+	center_x = M_WIDTH / 2 + 30;
+	center_y = M_HEIGHT / 2 + 20;
+	radius = 5;
+	x = center_x - radius;
+	while (x <= center_x + radius)
+	{
+		y = center_y - radius;
+		while (y <= center_y + radius)
+		{
+			if (pow((x - center_x), 2)
+				+ pow((y - center_y), 2) <= pow(radius, 2))
 				mlx_put_pixel(info->mlx.image, x, y, 0xFFF);
-            }
-        }
-    }
+			y++;
+		}
+		x++;
+	}
 }
 
 void	render_player(t_data *info)
 {
-	t_ray *tmp = info->ray;
-	int	i = 0;
-	// draw_direction(info, tmp);
-	while (tmp->next)
+	t_ray	*tmp;
+	int		i;
+
+	i = 0;
+	while (info->ray)
 	{
+		tmp = info->ray;
 		if (i == RAYS / 2)
-			draw_direction(info, tmp);
-		tmp = tmp->next;
+			draw_direction(info, info->ray);
+		info->ray = info->ray->next;
+		free(tmp);
 		i++;
 	}
-	// draw_direction(info, tmp);
 	draw_circle(info);
 }
 
 bool	check_walls(t_data *info, int i, int j)
 {
 	if (i > 0 && i/SIZE < info->height && j > 0 && j/SIZE < info->width)
-		if (info->map2d[i/SIZE][j/SIZE] == '1')
+		if (info->map2d[i / SIZE][j / SIZE] == '1')
 			return (true);
 	return (false);
 }
 
-void    render_minimap(t_data *info)
+void	render_minimap(t_data *info)
 {
+	int		i;
+	int		j;
+	int		x;
+	int		y;
 
-	int	start_x = 30;
-	int	start_y = 20;
-	
-	t_pos p;
-	p.y = info->player_pos.y;
-	p.x = info->player_pos.x;
-
-	int	i = p.y + (M_HEIGHT / 2);
-
-	for (int y = M_HEIGHT; y> 0; y--)
+	i = info->player_pos.y + (M_HEIGHT / 2);
+	y = M_HEIGHT;
+	while ( y> 0)
 	{
-		int	j = p.x + (M_WIDTH / 2);
-		for (int x=M_WIDTH;x> 0; x--)
+		j = info->player_pos.x + (M_WIDTH / 2);
+		x = M_WIDTH;
+		while (x > 0)
 		{
 			if (check_walls(info, i, j))
 				mlx_put_pixel(info->mlx.image, 30 + x, 20 + y, 0xFFFFF);
-			// else
-			// 	mlx_put_pixel(info->mlx.image, 30 + x, 20 + y, 0xFF0000);
 			j--;
+			x--;
 		}
 		i--;
+		y--;
 	}
 	render_player(info);
 }

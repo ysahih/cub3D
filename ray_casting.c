@@ -24,9 +24,18 @@ void	add_rays(t_ray **rays, t_ray *new_ray)
 	last_ray->next = new_ray;
 }
 
-float ft_distance(t_data *info, float x, float y)
+float	ft_distance(t_data *info, float x, float y)
 {
-	return(sqrt(pow(info->player_pos.x - x, 2) + pow(info->player_pos.y - y, 2)));
+	return (sqrt(pow(info->player_pos.x - x, 2)
+			+ pow(info->player_pos.y - y, 2)));
+}
+
+void	collect_ray(t_data **info, t_ray *new_ray, float angle, char c)
+{
+	new_ray->distance = ft_distance(*info, new_ray->x, new_ray->y) ;
+	new_ray->angle = angle;
+	new_ray->type = c;
+	add_rays((&(*info)->ray), new_ray);
 }
 
 void	ray(void *inf)
@@ -38,28 +47,22 @@ void	ray(void *inf)
 	float	end_angle;
 
 	info = inf;
+	info->ray = NULL;
 	start_angle = info->angle - (30 * M_PI / 180);
 	end_angle = info->angle + (30 * M_PI / 180);
-	info->ray = NULL;
 	while (start_angle <= end_angle)
 	{
 		vertical_ray = vertical(info, start_angle);
 		horizontal_ray = horizontal(info, start_angle);
-		if(ft_distance(info, horizontal_ray->x, horizontal_ray->y) > ft_distance(info, vertical_ray->x, vertical_ray->y))
+		if (ft_distance(info, horizontal_ray->x, horizontal_ray->y)
+			> ft_distance(info, vertical_ray->x, vertical_ray->y))
 		{
-			vertical_ray->distance = ft_distance(info, vertical_ray->x, vertical_ray->y) ;
-			vertical_ray->angle = start_angle;
-			vertical_ray->type = 'V';
-			add_rays(&info->ray, vertical_ray);
+			collect_ray(&info, vertical_ray, start_angle, 'V');
 			free(horizontal_ray);
-
 		}
 		else
 		{
-			horizontal_ray->distance = ft_distance(info, horizontal_ray->x, horizontal_ray->y);
-			horizontal_ray->angle = start_angle;
-			horizontal_ray->type = 'H';
-			add_rays(&info->ray, horizontal_ray);
+			collect_ray(&info, horizontal_ray, start_angle, 'H');
 			free(vertical_ray);
 		}
 		start_angle += 0.001;

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
- #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
+ #include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
@@ -78,37 +78,6 @@ typedef struct s_data
 	float 			angle;
 }   t_data;
 
-//utils
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-char	**ft_split(const char *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-char	*ft_strdup(const char *s);
-char	*ft_strjoin_one(char const *s1, char const *s2);
-void	ft_bzero(void *s, size_t n);
-char	*ft_strchr(const char *s, int c);
-
-//ray casting
-void	ray(void *inf);
-t_ray	*vertical(t_data *info, float angle);
-t_ray	*horizontal(t_data *info, float angle);
-
-//ray casting utils
-int 	wall(t_data *info, int x, int y);
-void	draw_ray(t_data *info);
-
-//textures
-unsigned int *store_colors(uint8_t *img);
-
-//minimap
-void	render_minimap(t_data *info);
-void	draw_player(t_data *info, int color,int i);
-//walls
-void    draw_walls(t_ray *ray, t_data *info, float x);
-unsigned int	get_color(mlx_image_t *image, int img_y, int img_x);
-
-//parsing
 typedef struct s_letters
 {
 	int n;
@@ -123,9 +92,66 @@ typedef struct s_letters
 typedef struct s_check
 {
 	int tmp_i;
-    int tmp_j;
-    int check[4];
-}   t_check;
+	int tmp_j;
+	int check[4];
+} t_check;
+
+//utils
+char 	**ft_read_map2d(char *av);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	**ft_split(const char *s, char c);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*get_next_line(int fd);
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s);
+char	*ft_strjoin_one(char const *s1, char const *s2);
+void	ft_bzero(void *s, size_t n);
+char	*ft_strchr(const char *s, int c);
+
+//store up
+float ft_player_angle(char **map2d);
+int ft_player_pos_y(char **map2d);
+int ft_player_pos_x(char **map2d);
+void ft_player_angle1(int *i, int *j, char **map2d);
+
+
+//movements utils
+int wall_1(t_data *info, int x, int y);
+int wall(t_data *info, int x, int y);
+
+
+//display
+void	display_map(t_data *info);
+void	rerender(void *inf);
+void	render_floor(mlx_image_t *image, unsigned int color);
+void	render_ceiling(mlx_image_t *image, unsigned int color);
+
+
+//movements
+void click(void *inf);
+
+//ray casting
+void	ray(void *inf);
+t_ray	*vertical(t_data *info, float angle);
+t_ray	*horizontal(t_data *info, float angle);
+
+//ray casting utils
+int 	wall(t_data *info, int x, int y);
+void	draw_ray(t_data *info);
+
+//textures
+unsigned int *store_colors(uint8_t *img);
+void	get_textures(t_data *info);
+mlx_image_t	*load_png(t_data *info, char *s);
+
+//minimap
+void	render_minimap(t_data *info);
+void	draw_player(t_data *info, int color,int i);
+//walls
+void    draw_walls(t_ray *ray, t_data *info, float x);
+unsigned int	get_color(mlx_image_t *image, int img_y, int img_x);
+
+//parsing
 
 void ft_parsing(t_data *info);
 void ft_parsing_tmp(t_data *info);
