@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../cube3d.h"
 
 void	draw_direction(t_data *info, t_ray *ray)
 {

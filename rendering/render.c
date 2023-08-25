@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../cube3d.h"
 
 void	render_ceiling(mlx_image_t *image, unsigned int color)
 {
@@ -51,16 +51,10 @@ void	rerender(void *inf)
 			info->sources.c_g, info->sources.c_b, 255);
 	f_color = RGBA(info->sources.f_r,
 			info->sources.f_g, info->sources.f_b, 255);
+
 	render_ceiling(info->mlx.image, c_color);
 	render_floor(info->mlx.image, f_color);
-	x = 0;
-	ray = info->ray;
-	while (ray)
-	{
-		draw_walls(ray, info, x * (WIDTH / RAYS));
-		ray = ray->next;
-		x++;
-	}
+	render_walls(info);
 	render_minimap(info);
 }
 

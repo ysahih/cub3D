@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../cube3d.h"
 
 float	down_first_x(t_data *info, float angle, float y)
 {
@@ -20,7 +20,7 @@ float	up_first_x(t_data *info, float angle, float y)
 	return (info->player_pos.x - o);
 }
 
-float	down_secnd_x(t_ray *ray, float angle, float y)
+float	down_secnd_x(t_ray *ray, float angle)
 {
 	float	o;
 
@@ -28,7 +28,7 @@ float	down_secnd_x(t_ray *ray, float angle, float y)
 	return (ray->x + o);
 }
 
-float	up_secnd_x(t_ray *ray, float angle, float y)
+float	up_secnd_x(t_ray *ray, float angle)
 {
 	float	o;
 
@@ -69,13 +69,13 @@ t_ray	*horizontal(t_data *info, float angle)
 		&& ((angle >= 0 && angle <= M_PI) || angle < -M_PI))
 	{
 		ray->y += SIZE;
-		ray->x = down_secnd_x(ray, angle, ray->y);
+		ray->x = down_secnd_x(ray, angle);
 	}
 	while (wall(info, ray->x, ray->y - SIZE) == 0
 		&& ((angle < 0 && angle >- M_PI) || angle > M_PI))
 	{
 		ray->y -= SIZE;
-		ray->x = up_secnd_x(ray, angle, ray->y);
+		ray->x = up_secnd_x(ray, angle);
 	}
 	ray->next = NULL;
 	return (ray);

@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../cube3d.h"
 
 t_ray	*ft_lstlast(t_ray *rays)
 {

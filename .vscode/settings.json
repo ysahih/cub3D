@@ -3,6 +3,7 @@
         "iterator": "c",
         "algorithm": "c",
         "ios": "c",
-        "complex": "c"
+        "complex": "c",
+        "type_traits": "c"
     }
 }
