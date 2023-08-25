@@ -6,11 +6,11 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:41:41 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:41:41 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:38:40 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 int	wall(t_data *info, int x, int y)
 {

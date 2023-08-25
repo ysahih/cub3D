@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+a.out
+TODO
 
 # Object files
 *.o

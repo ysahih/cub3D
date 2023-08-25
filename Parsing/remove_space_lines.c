@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:17:14 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:17:14 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:28:44 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	remove_space_lines(t_data *info)
 
 	lines_to_alloc = ft_lines_to_alloc(info->map2d);
 	new_array = malloc((lines_to_alloc + 1) * sizeof(char *));
+	if(!new_array)
+		ft_error();
 	i = 0;
 	count = 0;
 	new_array[lines_to_alloc] = NULL;

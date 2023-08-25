@@ -6,11 +6,11 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:29 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/17 17:15:55 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:37:42 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 size_t	ft_strlen(const char *s)
 {

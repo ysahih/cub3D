@@ -1,4 +1,4 @@
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static int	word_len(const char *s, char c)
 {

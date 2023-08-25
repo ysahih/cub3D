@@ -6,11 +6,11 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:35 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/17 17:12:41 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:37:48 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static int	check_ln_eof(char *line)
 {
@@ -51,6 +51,8 @@ static char	*ft_strs(char ***to_stock, char *line)
 	i = 0;
 	len = ft_slen(line);
 	new_line = malloc(len + 1);
+	if(!new_line)
+		ft_error();
 	**to_stock = ft_strdup(ft_strchr(line, '\n'));
 	while (i < len)
 	{
@@ -69,6 +71,8 @@ static char	*ft_read(char **to_stock, char *line, int fd)
 
 	count = 1;
 	buff = malloc(1 + 1);
+	if (!buff)
+		ft_error();
 	while (count > 0)
 	{
 		ft_bzero(buff, 1 + 1);

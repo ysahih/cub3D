@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:10 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/11 18:15:38 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/25 18:37:28 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

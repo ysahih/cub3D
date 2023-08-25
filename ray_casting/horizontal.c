@@ -43,6 +43,8 @@ t_ray	*first_hohit(t_data *info, float angle)
 	float	y;
 
 	ray = malloc(sizeof(t_ray));
+	if(!ray)
+		ft_error();
 	if (angle < -M_PI|| (angle >= 0 && angle <= M_PI))
 	{
 		y = floor(info->player_pos.y / SIZE) * SIZE + SIZE;

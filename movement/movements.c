@@ -6,11 +6,11 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:39:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 15:27:39 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:38:43 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 void	click_up_down(t_data *info)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_one.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/23 23:08:47 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/25 18:37:31 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "../cube3d.h"
 
 static char	**str_count(char **str, const char *s, char c)
 {
@@ -30,6 +30,9 @@ static char	**str_count(char **str, const char *s, char c)
 		count = 0;
 		while (*s && *s == c)
 		{
+			count++;
+			if(count > 1)
+				i++;
 			s++;
 		}
 	}
@@ -83,7 +86,7 @@ static char	**ft_free_all(char **str)
 	return (0);
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split_one(const char *s, char c)
 {
 	char	**str;
 	int		i;
@@ -110,6 +113,12 @@ char	**ft_split(const char *s, char c)
 		count = 0;
 		while (*s && *s == c)
 		{
+			count++;
+			if(count > 1)
+			{
+				str[i] = ft_strdup("\n");
+				i++;
+			}
 			s++;
 		}
 	}
