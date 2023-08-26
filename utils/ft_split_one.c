@@ -6,45 +6,11 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/26 14:55:19 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/27 00:00:03 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
-
-static char	**str_count(char **str, const char *s, char c)
-{
-	int	i ;
-	int count = 0;
-
-	i = 0;
-	while (*s)
-	{
-		if (*s != c)
-		{
-			i++;
-			s++;
-		}
-		while (*s && *s != c)
-		s++;
-		count = 0;
-		while (*s && *s == c)
-		{
-			count++;
-			if(count > 1)
-				i++;
-			s++;
-		}
-	}
-	str = malloc((i + 1) * sizeof(char *));
-	if (!str)
-	{
-		free(str);
-		ft_error("allocation failed");
-	}
-	str[i] = 0;
-	return (str);
-}
 
 static int	word_len(const char *s, char c)
 {
@@ -86,53 +52,43 @@ static char	**ft_free_all(char **str)
 	return (0);
 }
 
-char	**ft_split_one(const char *s, char c)
+char	**ft_split_two(int i, int count, char c, const char *s)
 {
 	char	**str;
-	int		i;
-	int count;
 
-	if (!s)
-		return (0);
 	str = NULL;
-	str = str_count(str, s, c);
+	str = str_count_one(str, s, c);
 	if (!str)
 		return (0);
-	i = 0;
 	while (*s)
 	{
 		if (*s != c)
 		{
 			str[i] = ft_word(s, c);
-			if (!str[i])
+			if (!str[i++])
 				return (ft_free_all(str));
-			i++;
 		}
 		while (*s && *s != c)
 			s++;
 		count = 0;
 		while (*s && *s == c)
 		{
-			count++;
-			if(count > 1)
-			{
-				str[i] = ft_strdup("\n");
-				i++;
-			}
+			if (++count > 1)
+				str[i++] = ft_strdup("\n");
 			s++;
 		}
 	}
 	return (str);
 }
 
-// int main()
-// {
-// 	char *s = "ismail---barka";
-// 	char **strs = ft_split(s, '-');
-// 	int i = 0;
-// 	while(strs[i])
-// 	{
-// 		printf("%s\n", strs[i]);
-// 		i++;
-// 	}
-// }
+char	**ft_split_one(const char *s, char c)
+{
+	char	**str;
+	int		i;
+	int		count;
+
+	if (!s)
+		return (0);
+	i = 0;
+	return (ft_split_two(i, count, c, s));
+}

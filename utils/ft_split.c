@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/26 14:55:33 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 23:59:43 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,30 @@
 
 static char	**str_count(char **str, const char *s, char c)
 {
-	int	i ;
-	int count = 0;
+	int	i[2];
 
-	i = 0;
+	i[0] = 0;
+	i[1] = 0;
 	while (*s)
 	{
 		if (*s != c)
 		{
-			i++;
+			i[0]++;
 			s++;
 		}
 		while (*s && *s != c)
-		s++;
-		count = 0;
-		while (*s && *s == c)
-		{
 			s++;
-		}
+		i[1] = 0;
+		while (*s && *s == c)
+			s++;
 	}
-	str = malloc((i + 1) * sizeof(char *));
+	str = malloc((i[0] + 1) * sizeof(char *));
 	if (!str)
 	{
 		free(str);
 		ft_error("allocation failed");
 	}
-	str[i] = 0;
+	str[i[0]] = 0;
 	return (str);
 }
 
@@ -87,7 +85,7 @@ char	**ft_split(const char *s, char c)
 {
 	char	**str;
 	int		i;
-	int count;
+	int		count;
 
 	if (!s)
 		return (0);
@@ -101,29 +99,13 @@ char	**ft_split(const char *s, char c)
 		if (*s != c)
 		{
 			str[i] = ft_word(s, c);
-			if (!str[i])
-				return (ft_free_all(str));
 			i++;
 		}
 		while (*s && *s != c)
 			s++;
 		count = 0;
 		while (*s && *s == c)
-		{
 			s++;
-		}
 	}
 	return (str);
 }
-
-// int main()
-// {
-// 	char *s = "ismail---barka";
-// 	char **strs = ft_split(s, '-');
-// 	int i = 0;
-// 	while(strs[i])
-// 	{
-// 		printf("%s\n", strs[i]);
-// 		i++;
-// 	}
-// }

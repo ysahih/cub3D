@@ -1,37 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_split_one_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/25 15:56:29 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/27 00:00:23 by isbarka          ###   ########.fr       */
+/*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
+/*   Updated: 2023/08/26 23:58:42 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-size_t	ft_strlen(const char *s)
+char	**ft_alloc(int i)
 {
-	int	i;
+	char	**str;
 
-	i = 0;
-	while (s[i] != '\0')
+	str = malloc((i + 1) * sizeof(char *));
+	if (!str)
 	{
-		i++;
+		free(str);
+		ft_error("allocation failed");
 	}
-	return (i);
+	str[i] = 0;
+	return (str);
 }
 
-size_t	ft_len(char **s)
+char	**str_count_one(char **str, const char *s, char c)
 {
-	int	i;
+	int	i ;
+	int	count;
 
 	i = 0;
-	while (s[i] != NULL)
+	count = 0;
+	while (*s)
 	{
-		i++;
+		if (*s != c)
+		{
+			i++;
+			s++;
+		}
+		while (*s && *s != c)
+			s++;
+		count = 0;
+		while (*s && *s == c)
+		{
+			count++;
+			if (count > 1)
+				i++;
+			s++;
+		}
 	}
-	return (i);
+	str = ft_alloc(i);
+	return (str);
 }

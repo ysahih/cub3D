@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:52:10 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 17:52:11 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:01:05 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	**str_count(char **str, const char *s, char c)
 			s++;
 		}
 		while (*s && *s != c)
-		s++;
+			s++;
 		while (*s && *s == c)
 		{
 			s++;
@@ -70,7 +70,7 @@ static char	**str_count(char **str, const char *s, char c)
 	return (str);
 }
 
-char *ft_read_map2d1(char *map, int fd)
+char	*ft_read_map2d1(char *map, int fd)
 {
 	char	*str;
 	int		i;

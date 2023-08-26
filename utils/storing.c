@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   storing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:52:15 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 17:52:20 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:00:46 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ float	ft_player_angle(char **map2d)
 
 	i = 0;
 	j = 0;
-	ft_player_angle1(&i , &j, map2d);
+	ft_player_angle1(&i, &j, map2d);
 	if (map2d[i][j] == 'N')
 		return (-M_PI / 2);
 	if (map2d[i][j] == 'W')

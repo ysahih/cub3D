@@ -4,6 +4,7 @@
         "algorithm": "c",
         "ios": "c",
         "complex": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "sstream": "c"
     }
 }

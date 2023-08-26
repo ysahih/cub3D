@@ -18,6 +18,7 @@ SRCS = main.c\
 	utils/ft_memcpy.c\
 	utils/ft_split.c\
 	utils/ft_split_one.c\
+	utils/ft_split_one_two.c\
 	utils/ft_strdup.c\
 	utils/ft_strjoin.c\
 	utils/ft_strlen.c\
@@ -33,7 +34,8 @@ OBJS = $(SRCS:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) ../MLX42/build/libmlx42.a -Iinclude -lglfw -L "../homebrew/Cellar/glfw/3.3.8/lib" -o $(NAME) $^
+	$(CC) /Users/isbarka/Desktop/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/isbarka/.brew/opt/glfw/lib/" -o $(NAME) $^
+# ../MLX42/build/libmlx42.a -Iinclude -lglfw -L "../homebrew/Cellar/glfw/3.3.8/lib" -o $(NAME) $^
 
 %.o: %.c $(HDR)
 	$(CC) -c $< -o $@
