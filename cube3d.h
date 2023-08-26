@@ -8,7 +8,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
-# include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
+# include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
@@ -240,6 +240,7 @@ void 			ft_parsing(t_data *info);
 bool			check_walls(t_data *info, int i, int j);
 void			ft_f_one(t_data *info);
 void			ft_c_one(t_data *info);
+int check_under_line(char **map2d1, int i);
 
 
 

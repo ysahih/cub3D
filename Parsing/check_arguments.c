@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/26 17:28:50 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 17:55:08 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_check_rgb(char *str, char c, t_data *info)
 	int	b ;
 
 	check_two_camas(str);
-	if(str[0] == ',')
+	if (str[0] == ',')
 		ft_error("cama");
 	r = ft_atoi(str);
 	g = ft_atoi(first_cama(str));

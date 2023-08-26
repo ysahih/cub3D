@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:39:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:38:43 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 18:04:30 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	mouse_click(t_data *info)
 	float	angle;
 
 	mlx_get_mouse_pos(info->mlx.mlx, &x, &y);
-	mlx_set_mouse_pos(info->mlx.mlx, WIDTH / 2 ,HEIGHT / 2);
+	mlx_set_mouse_pos(info->mlx.mlx, WIDTH / 2, HEIGHT / 2);
 	if (x > WIDTH / 2)
 	{
 		angle = fmod(info->angle, (2 * M_PI));
