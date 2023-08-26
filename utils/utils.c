@@ -73,9 +73,15 @@ char *ft_read_map2d1(char *map, int fd)
 	}
 	return map;
 }
-
-char **ft_read_map2d(char *av)
+void f()
 {
+	system("leaks a.out");
+}
+
+
+char **ft_read_map2d(char *av, t_data *info)
+{
+	atexit(f);
     char	**map2d;
 	char 	**map2d1;
 	char	*map;
@@ -93,6 +99,7 @@ char **ft_read_map2d(char *av)
 	check_map(map);
 	map2d = ft_split(map, '\n');
 	map2d1 = ft_split_one(map, '\n');
+	info->map2d1 = map2d1;
 	check_empty_line(map2d1);
 	free(map);
 	return (map2d);

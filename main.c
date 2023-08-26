@@ -1,15 +1,12 @@
  #include "cube3d.h"
 
-t_data	open_window(char **map)
+void	open_window(t_data *info , char **map)
 {
-	t_data	info;
-
-	info.mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
-	info.mlx.image = mlx_new_image(info.mlx.mlx, WIDTH, HEIGHT);
-	info.move_speed = 2;
-	info.rotate_speed = 0.05;
-	info.map2d = map;
-	return (info);
+	info->mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
+	info->mlx.image = mlx_new_image(info->mlx.mlx, WIDTH, HEIGHT);
+	info->move_speed = 2;
+	info->rotate_speed = 0.05;
+	info->map2d = map;
 }
 
 void	get_data(t_data *info)
@@ -21,14 +18,44 @@ void	get_data(t_data *info)
 	info->width = ft_strlen(info->map2d[0]);
 }
 
+void ft_free(t_data *info) {
+    int i = 0;
+    
+    // Free the map2d array
+    while (info->map2d && info->map2d[i]) {
+        free(info->map2d[i]);
+        i++;
+    }
+    free(info->map2d);
+    info->map2d = NULL; // Set the pointer to NULL
+    
+    // Reset i
+    i = 0;
+    
+    // Free the map2d1 array
+    while (info->map2d1 && info->map2d1[i]) {
+        free(info->map2d1[i]);
+        i++;
+    }
+    free(info->map2d1);
+    info->map2d1 = NULL; // Set the pointer to NULL
+}
+
+void f_()
+{
+	system("leaks a.out");
+}
+
 int main(int ac, char **av)
 {
 	t_data	info;
 	char	**map;
 
-	map = ft_read_map2d(av[1]);
-	info = open_window(map);
+	map = ft_read_map2d(av[1],&info);
+	open_window(&info, map);
 	ft_parsing(&info);
+	while(1);
+	// ft_free(&info);
 	get_textures(&info);
 	get_data(&info);
 	display_map(&info);

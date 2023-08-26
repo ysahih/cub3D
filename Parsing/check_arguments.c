@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/26 14:46:03 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 17:28:50 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,6 @@ void	check_arguments(t_data *info)
 	ft_c_one(info);
 	ft_check_rgb(f, 'f', info);
 	ft_check_rgb(c, 'c', info);
+	free(f);
+	free(c);
 }

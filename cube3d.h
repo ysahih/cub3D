@@ -66,6 +66,7 @@ typedef struct s_data
 {
 	unsigned int	*texture;
 	char 			**map2d;
+	char 			**map2d1;
 	t_ray			*ray;
 	t_mlx			mlx;
 	t_pos			der_pos;
@@ -97,7 +98,7 @@ typedef struct s_check
 } t_check;
 
 //utils
-char 	**ft_read_map2d(char *av);
+char **ft_read_map2d(char *av, t_data *info);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	**ft_split(const char *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
