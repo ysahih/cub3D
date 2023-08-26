@@ -1,6 +1,6 @@
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#ifndef cub3D_H
+# define cub3D_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -8,7 +8,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdbool.h>
-# include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
+
+# include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | 255)
 

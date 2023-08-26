@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:53:20 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/27 00:07:05 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/27 00:15:41 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube3d.h"
+#include "cub3D.h"
 
 void	open_window(t_data *info, char **map)
 {
@@ -34,11 +34,16 @@ void	get_data(t_data *info)
 	info->width = ft_strlen(info->map2d[0]);
 }
 
+void	fun()
+{
+	system("leaks cub3D");
+}
+
 int	main(int ac, char **av)
 {
 	t_data	info;
 	char	**map;
-
+	atexit (fun);
 	map = ft_read_map2d(av[1], &info);
 	open_window(&info, map);
 	ft_parsing(&info);

@@ -6,11 +6,11 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:43:57 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 18:11:40 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:08:13 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "../cub3D.h"
 
 t_ray	*first_vehit(t_data *info, float angle)
 {

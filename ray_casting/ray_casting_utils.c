@@ -6,11 +6,11 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:48:10 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 18:11:05 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:08:13 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "../cub3D.h"
 
 void	add_rays(t_ray **rays, t_ray *new_ray)
 {

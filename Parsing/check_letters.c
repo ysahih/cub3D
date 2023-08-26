@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_letters.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:22 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/26 14:48:04 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/27 00:08:13 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "../cub3D.h"
 
 void	ft_check_two(int i, int j, t_data *info, t_letters *letters)
 {

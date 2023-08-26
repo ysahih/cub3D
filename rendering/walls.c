@@ -6,11 +6,11 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 18:14:02 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 18:14:44 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 00:16:53 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube3d.h"
+#include "../cub3D.h"
 
 unsigned int	get_color(mlx_image_t *image, int img_y, int img_x)
 {
@@ -90,7 +90,6 @@ void	draw_walls(t_data *info, t_ray *ray, float x)
 		wall.color = get_color(info->mlx.txt_image, wall.img_y, wall.img_x);
 		mlx_put_pixel(info->mlx.image, x, wall.y + wall.i, wall.color);
 	}
-	ray = ray->next;
 }
 
 void	render_walls(t_data *info)

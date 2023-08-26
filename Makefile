@@ -1,5 +1,5 @@
 NAME = cub3D
-HDR = cube3d.h
+HDR = cub3D.h
 SRCS = main.c\
 	load_texuters.c\
 	Parsing/arguments_to_space.c Parsing/check_arguments.c Parsing/check_letters.c Parsing/directions_one.c Parsing/ft_strncmp.c\
@@ -34,8 +34,7 @@ OBJS = $(SRCS:%.c=%.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) /Users/isbarka/Desktop/MLX42/build/libmlx42.a -Iinclude -lglfw -L"/Users/isbarka/.brew/opt/glfw/lib/" -o $(NAME) $^
-# ../MLX42/build/libmlx42.a -Iinclude -lglfw -L "../homebrew/Cellar/glfw/3.3.8/lib" -o $(NAME) $^
+	$(CC)  ../MLX42/build/libmlx42.a -Iinclude -lglfw -L "../homebrew/Cellar/glfw/3.3.8/lib" -o $(NAME) $^
 
 %.o: %.c $(HDR)
 	$(CC) -c $< -o $@
