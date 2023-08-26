@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 17:52:10 by ysahih            #+#    #+#             */
+/*   Updated: 2023/08/26 17:52:11 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 static int	word_len(const char *s, char c)
@@ -60,8 +72,10 @@ static char	**str_count(char **str, const char *s, char c)
 
 char *ft_read_map2d1(char *map, int fd)
 {
-	char *str;
-	int i = 0;
+	char	*str;
+	int		i;
+
+	i = 0;
 	while (1)
 	{
 		str = get_next_line(fd);
@@ -71,19 +85,13 @@ char *ft_read_map2d1(char *map, int fd)
 		map = ft_strjoin(map, str);
 		free(str);
 	}
-	return map;
-}
-void f()
-{
-	system("leaks a.out");
+	return (map);
 }
 
-
-char **ft_read_map2d(char *av, t_data *info)
+char	**ft_read_map2d(char *av, t_data *info)
 {
-	atexit(f);
-    char	**map2d;
-	char 	**map2d1;
+	char	**map2d;
+	char	**map2d1;
 	char	*map;
 	int		fd;
 

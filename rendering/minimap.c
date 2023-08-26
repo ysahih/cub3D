@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 17:50:21 by ysahih            #+#    #+#             */
+/*   Updated: 2023/08/26 17:50:22 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 void	draw_direction(t_data *info, t_ray *ray)
@@ -79,9 +91,9 @@ void	render_minimap(t_data *info)
 	int		x;
 	int		y;
 
-	i = info->player_pos.y + (M_HEIGHT / 2);
 	y = M_HEIGHT;
-	while ( y> 0)
+	i = info->player_pos.y + (M_HEIGHT / 2);
+	while (y > 0)
 	{
 		j = info->player_pos.x + (M_WIDTH / 2);
 		x = M_WIDTH;

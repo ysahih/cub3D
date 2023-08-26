@@ -54,48 +54,45 @@ mlx_image_t	*get_image(t_data *info, t_ray *ray)
 	return (image);
 }
 
-void	draw(t_data *info, mlx_image_t *image, int wall_height, int img_x)
+void	draw_walls(t_data *info, t_ray *ray, float x)
 {
-	static int	x;
-	int			img_y;
-	int			i;
-	int			h;
-	int			hold;
+	t_wall wall;
 
-	i = -1;
-	if (x == WIDTH)
-		x = 0;
-	h = wall_height;
-	if (wall_height > HEIGHT)
-		wall_height = HEIGHT;
-	while (++i < wall_height)
+	wall.i = -1;
+	wall.hold = 0;
+	wall.middle = HEIGHT / 2;
+	info->mlx.txt_image = get_image(info, ray);
+	wall.wall_height = (HEIGHT * 10)
+		/ (ray->distance * cos(ray->angle - info->angle));
+	wall.h = wall.wall_height;
+	if (wall.wall_height > HEIGHT)
+		wall.wall_height = HEIGHT;
+	wall.img_x = image_offset(info->mlx.txt_image, ray);
+	wall.y = wall.middle - wall.wall_height / 2;
+	while (++wall.i < wall.wall_height)
 	{
-		if (wall_height == HEIGHT)
-			hold = (h - HEIGHT) / 2;
-		img_y = ((i * image->height) / h
-				+ (hold * image->height) / h);
-		mlx_put_pixel(info->mlx.image, x, \
-			((HEIGHT / 2 - wall_height / 2) + i),
-			get_color(image, img_y, img_x));
+		if (wall.wall_height == HEIGHT)
+			wall.hold = (wall.h - HEIGHT) / 2;
+		wall.img_y = ((wall.i * info->mlx.txt_image->height) / wall.h
+				+ (wall.hold * info->mlx.txt_image->height) / wall.h);
+		wall.color = get_color(info->mlx.txt_image, wall.img_y, wall.img_x);
+		mlx_put_pixel(info->mlx.image, x, wall.y + wall.i, wall.color);
 	}
-	x++;
+	ray = ray->next;
 }
 
 void	render_walls(t_data *info)
 {
-	mlx_image_t	*image;
-	t_ray		*ray;
-	int			wall_height;
-	int			img_x;
+	int	x;
+	t_ray *tmp;
 
-	ray = info->ray;
-	while (ray)
+	x = 0;
+	while (info->ray)
 	{
-		image = get_image(info, ray);
-		wall_height = (HEIGHT * 20)
-			/ (ray->distance * cos(ray->angle - info->angle));
-		img_x = image_offset(image, ray);
-		draw(info, image, wall_height, img_x);
-		ray = ray->next;
+		tmp = info->ray;
+		draw_walls(info, info->ray, x);
+		info->ray = info->ray->next;
+		free(tmp);
+		x++;
 	}
 }

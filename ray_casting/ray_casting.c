@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 17:45:15 by ysahih            #+#    #+#             */
+/*   Updated: 2023/08/26 17:47:52 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 t_ray	*ft_lstlast(t_ray *rays)
@@ -9,47 +21,11 @@ t_ray	*ft_lstlast(t_ray *rays)
 	return (rays);
 }
 
-void	add_rays(t_ray **rays, t_ray *new_ray)
+void	cast_rays(t_data *info, float start_angle, float end_angle)
 {
-	t_ray	*last_ray;
-
-	if (!rays)
-		return ;
-	if (*rays == NULL)
-	{
-		*rays = new_ray;
-		return ;
-	}
-	last_ray = ft_lstlast(*rays);
-	last_ray->next = new_ray;
-}
-
-float	ft_distance(t_data *info, float x, float y)
-{
-	return (sqrt(pow(info->player_pos.x - x, 2)
-			+ pow(info->player_pos.y - y, 2)));
-}
-
-void	collect_ray(t_data **info, t_ray *new_ray, float angle, char c)
-{
-	new_ray->distance = ft_distance(*info, new_ray->x, new_ray->y) ;
-	new_ray->angle = angle;
-	new_ray->type = c;
-	add_rays((&(*info)->ray), new_ray);
-}
-
-void	ray(void *inf)
-{
-	t_data	*info;
 	t_ray	*horizontal_ray;
 	t_ray	*vertical_ray;
-	float	start_angle;
-	float	end_angle;
 
-	info = inf;
-	info->ray = NULL;
-	start_angle = info->angle - (30 * M_PI / 180);
-	end_angle = info->angle + (30 * M_PI / 180);
 	while (start_angle <= end_angle)
 	{
 		vertical_ray = vertical(info, start_angle);
@@ -67,4 +43,17 @@ void	ray(void *inf)
 		}
 		start_angle += 0.001;
 	}
+}
+
+void	ray(void *inf)
+{
+	t_data	*info;
+	float	start_angle;
+	float	end_angle;
+
+	info = inf;
+	info->ray = NULL;
+	start_angle = info->angle - (30 * M_PI / 180);
+	end_angle = info->angle + (30 * M_PI / 180);
+	cast_rays(info, start_angle, end_angle);
 }

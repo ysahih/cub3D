@@ -1,9 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 17:53:20 by ysahih            #+#    #+#             */
+/*   Updated: 2023/08/26 17:53:21 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
  #include "cube3d.h"
 
 void	open_window(t_data *info , char **map)
 {
 	info->mlx.mlx = mlx_init(WIDTH, HEIGHT, "test", NULL);
+	if (!info->mlx.mlx)
+		ft_error("mlx init failed");
 	info->mlx.image = mlx_new_image(info->mlx.mlx, WIDTH, HEIGHT);
+	if (!info->mlx.image)
+		ft_error("mlx new image failed");
 	info->move_speed = 2;
 	info->rotate_speed = 0.05;
 	info->map2d = map;
@@ -41,10 +57,10 @@ void ft_free(t_data *info) {
     info->map2d1 = NULL; // Set the pointer to NULL
 }
 
-void f_()
-{
-	system("leaks a.out");
-}
+// void f_()
+// {
+// 	system("leaks a.out");
+// }
 
 int main(int ac, char **av)
 {
@@ -54,8 +70,6 @@ int main(int ac, char **av)
 	map = ft_read_map2d(av[1],&info);
 	open_window(&info, map);
 	ft_parsing(&info);
-	while(1);
-	// ft_free(&info);
 	get_textures(&info);
 	get_data(&info);
 	display_map(&info);

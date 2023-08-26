@@ -1,13 +1,14 @@
-#ifndef CUBE3D_H
+
+# ifndef CUBE3D_H
 # define CUBE3D_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <math.h>
-#include <stdbool.h>
- #include "/Users/isbarka/Desktop/MLX42/include/MLX42/MLX42.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <math.h>
+# include <stdbool.h>
+# include "/Users/ysahih/Desktop/MLX42/include/MLX42/MLX42.h"
 
 #define RGBA(r, g, b, a) (r << 24 | g << 16 | b << 8 | a)
 
@@ -21,21 +22,36 @@
 #define M_HEIGHT 130 
 
 
+typedef struct	s_wall
+{
+	unsigned int	color;
+	int 			wall_height;
+	int 			h;
+	int 			middle;
+	float 			y;
+	int				img_y;
+	int				img_x;
+	int				hold;
+	int				i;
+
+} t_wall ;
 typedef struct	s_pos
 {
 	float	x;
 	float	y;
-} t_pos;
+}	t_pos;
 typedef struct  s_mlx
 {
-	mlx_texture_t *txt;
-	mlx_image_t	*no_image;
-	mlx_image_t	*so_image;
-	mlx_image_t	*ea_image;
-	mlx_image_t	*we_image;
-	mlx_image_t	*image;
-	mlx_t		*mlx;
-} t_mlx;
+	mlx_texture_t	*txt;
+	mlx_image_t		*no_image;
+	mlx_image_t		*txt_image;
+	mlx_image_t		*so_image;
+	mlx_image_t		*ea_image;
+	mlx_image_t		*we_image;
+	mlx_image_t		*image;
+	mlx_t			*mlx;
+}	t_mlx;
+
 
 typedef struct s_ray
 {
@@ -148,14 +164,13 @@ t_ray	*ft_lstlast(t_ray *rays);
 //display
 void			display_map(t_data *info);
 void			rerender(void *inf);
-				
 void			render_ceiling(mlx_image_t *image, unsigned int color);
 void			render_floor(mlx_image_t *image, unsigned int color);
 void			render_walls(t_data *info);
 void			render_minimap(t_data *info);
 void			render_player(t_data *info);
-void			draw(t_data *info, mlx_image_t *image, int wall_height, int img_x);
-void	draw_walls(t_ray *ray, t_data *info, float x);
+void			render_walls(t_data *info);
+void			draw_walls(t_data *info, t_ray *ray, float x);
 void			draw_direction(t_data *info, t_ray *ray);
 void			draw_player(t_data *info, int color,int i);
 void			draw_circle(t_data *info);
@@ -170,7 +185,6 @@ void	draw_ray(t_data *info);
 unsigned int	get_color(mlx_image_t *image, int img_y, int img_x);
 mlx_image_t		*get_image(t_data *info, t_ray *ray);
 float			image_offset(mlx_image_t *image, t_ray *ray);
-unsigned int	*store_colors(uint8_t *img);
 void			get_textures(t_data *info);
 mlx_image_t		*load_png(t_data *info, char *s);
 

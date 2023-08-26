@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rect.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:17:11 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/26 14:42:34 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 17:40:03 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(const char *str)
 {
-	printf("error: ");
+	printf("Error: ");
 	printf("%s\n", str);
 	exit(1);
 }

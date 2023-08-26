@@ -1,40 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vertical.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 17:43:57 by ysahih            #+#    #+#             */
+/*   Updated: 2023/08/26 17:49:11 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
-
-float	first_y(t_data *info, float angle, float x)
-{
-	float	distance;
-	float	o;
-
-	distance = x - info->player_pos.x;
-	o = tan(angle) * distance;
-	return (info->player_pos.y + o);
-}
-
-float	left_first_y(t_data *info, float angle, float x)
-{
-	float	distance;
-	float	o;
-
-	distance = info->player_pos.x - x;
-	o = distance * tan(angle);
-	return (info->player_pos.y - o);
-}
-
-float	left_secnd_y(t_ray *ray, float angle)
-{
-	float	o;
-
-	o = SIZE * tan(angle);
-	return (o + ray->y);
-}
-
-float	right_secnd_y(t_ray *ray, float angle)
-{
-	float	o;
-
-	o = SIZE * tan(angle);
-	return (ray->y - o);
-}
 
 t_ray	*first_vehit(t_data *info, float angle)
 {
@@ -43,7 +19,7 @@ t_ray	*first_vehit(t_data *info, float angle)
 	t_ray	*ray;
 
 	ray = malloc(sizeof(t_ray));
-	if(!ray)
+	if (!ray)
 		ft_error("allocation failed");
 	if (angle >= -M_PI / 2 && angle <= M_PI / 2)
 	{
@@ -83,6 +59,6 @@ t_ray	*vertical(t_data *info, float angle)
 		ray->x -= SIZE;
 		ray->y = right_secnd_y(ray, angle);
 	}
-	ray->next = NULL;
+	ray->next = (NULL);
 	return (ray);
 }
