@@ -6,13 +6,13 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:50:21 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 17:50:22 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/26 18:13:42 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-void	draw_direction(t_data *info, t_ray *ray)
+void	draw_direction(t_data *info)
 {
 	int	x;
 	int	y;
@@ -64,21 +64,13 @@ void	render_player(t_data *info)
 	int		i;
 
 	i = 0;
-	while (info->ray)
-	{
-		tmp = info->ray;
-		if (i == RAYS / 2)
-			draw_direction(info, info->ray);
-		info->ray = info->ray->next;
-		free(tmp);
-		i++;
-	}
+	draw_direction(info);
 	draw_circle(info);
 }
 
 bool	check_walls(t_data *info, int i, int j)
 {
-	if (i > 0 && i/SIZE < info->height && j > 0 && j/SIZE < info->width)
+	if (i > 0 && i / SIZE < info->height && j > 0 && j / SIZE < info->width)
 		if (info->map2d[i / SIZE][j / SIZE] == '1')
 			return (true);
 	return (false);

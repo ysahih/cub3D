@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   walls.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/26 18:14:02 by ysahih            #+#    #+#             */
+/*   Updated: 2023/08/26 18:14:44 by ysahih           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 unsigned int	get_color(mlx_image_t *image, int img_y, int img_x)
@@ -56,7 +68,7 @@ mlx_image_t	*get_image(t_data *info, t_ray *ray)
 
 void	draw_walls(t_data *info, t_ray *ray, float x)
 {
-	t_wall wall;
+	t_wall	wall;
 
 	wall.i = -1;
 	wall.hold = 0;
@@ -83,8 +95,8 @@ void	draw_walls(t_data *info, t_ray *ray, float x)
 
 void	render_walls(t_data *info)
 {
-	int	x;
-	t_ray *tmp;
+	int		x;
+	t_ray	*tmp;
 
 	x = 0;
 	while (info->ray)

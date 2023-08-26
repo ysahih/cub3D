@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:43:57 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 17:49:11 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/26 18:11:40 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_ray	*first_vehit(t_data *info, float angle)
 		x = floor(info->player_pos.x / SIZE) * SIZE + SIZE ;
 		y = first_y(info, angle, x);
 	}
-	if (angle <= -M_PI || angle >= M_PI ||
-		(angle >= -M_PI && angle < -M_PI / 2)
+	if (angle <= -M_PI || angle >= M_PI
+		|| (angle >= -M_PI && angle < -M_PI / 2)
 		|| (angle <= M_PI && angle > M_PI / 2))
 	{
 		x = floor(info->player_pos.x / SIZE) * SIZE;

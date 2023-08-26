@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:50:32 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/26 17:50:49 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/26 18:13:57 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	rerender(void *inf)
 			info->sources.c_g, info->sources.c_b, 255);
 	f_color = RGBA(info->sources.f_r,
 			info->sources.f_g, info->sources.f_b, 255);
-
 	render_ceiling(info->mlx.image, c_color);
 	render_floor(info->mlx.image, f_color);
 	render_walls(info);
