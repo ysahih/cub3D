@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:22 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:37:36 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:55:36 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strdup(const char *s)
 	new_s = malloc(s_len + 1);
 	if (!new_s)
 	{
-		return (NULL);
+		ft_error("allocation failed");
 	}
 	while (s[i] != '\0')
 	{

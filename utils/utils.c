@@ -22,7 +22,7 @@ static char	*ft_word(const char *s, char c)
 	if (!str)
 	{
 		free(str);
-		return (0);
+		ft_error("allocation failed");
 	}
 	ft_memcpy(str, s, len);
 	str[len] = '\0';
@@ -52,7 +52,7 @@ static char	**str_count(char **str, const char *s, char c)
 	if (!str)
 	{
 		free(str);
-		return (0);
+		ft_error("allocation failed");
 	}
 	str[i] = 0;
 	return (str);

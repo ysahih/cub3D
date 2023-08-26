@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 18:18:22 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:18:40 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:50:46 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ char	*ft_so(t_data *info)
 			if (info->map2d[i][3])
 				return (ft_strdup(&(info->map2d[i][3])));
 			else
-				ft_error();
+				ft_error("empty");
 		}
 		i++;
 	}
-	ft_error();
+	ft_error("need arguments");
 	return (NULL);
 }
 
@@ -46,11 +46,11 @@ char	*ft_we(t_data *info)
 			if (info->map2d[i][3])
 				return (ft_strdup(&(info->map2d[i][3])));
 			else
-				ft_error();
+				ft_error("empty");
 		}
 		i++;
 	}
-	ft_error();
+	ft_error("need arguments");
 	return (NULL);
 }
 
@@ -67,11 +67,11 @@ char	*ft_ea(t_data *info)
 			if (info->map2d[i][3])
 				return (ft_strdup(&(info->map2d[i][3])));
 			else
-				ft_error();
+				ft_error("empty");
 		}
 		i++;
 	}
-	ft_error();
+	ft_error("need argument");
 	return (NULL);
 }
 
@@ -88,10 +88,10 @@ char	*ft_no(t_data *info)
 			if (info->map2d[i][3])
 				return (ft_strdup(&(info->map2d[i][3])));
 			else
-				ft_error();
+				ft_error("empty");
 		}
 		i++;
 	}
-	ft_error();
+	ft_error("need arguments");
 	return (NULL);
 }

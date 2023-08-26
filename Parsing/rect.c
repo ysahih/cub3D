@@ -6,15 +6,16 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:17:11 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:17:11 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:42:34 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube3d.h"
 
-void	ft_error(void)
+void	ft_error(const char *str)
 {
-	write(2, "error\n", 6);
+	printf("error: ");
+	printf("%s\n", str);
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:12 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:16:12 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:43:13 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_under_map(t_data *info, int i)
 		|| info->map2d[i][0] == 'C'
 		|| info->map2d[i][0] == 'E')
 		{
-			ft_error();
+			ft_error("element under map");
 		}
 		i++;
 	}

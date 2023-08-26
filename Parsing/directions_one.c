@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 18:18:47 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:18:55 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:49:18 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_so_one(t_data *info)
 			if (info->map2d[i][3] && check == 0)
 				check = 1;
 			else
-				ft_error();
+				ft_error("duplicated SO");
 		}
 		i++;
 	}
@@ -46,7 +46,7 @@ void	ft_we_one(t_data *info)
 			if (info->map2d[i][3] && check == 0)
 				check = 1;
 			else
-				ft_error();
+				ft_error("duplicated WE");
 		}
 		i++;
 	}
@@ -66,7 +66,7 @@ void	ft_ea_one(t_data *info)
 			if (info->map2d[i][3] && check == 0)
 				check = 1;
 			else
-				ft_error();
+				ft_error("duplicated EA");
 		}
 		i++;
 	}
@@ -86,7 +86,7 @@ void	ft_no_one(t_data *info)
 			if (info->map2d[i][3] && check == 0)
 				check = 1;
 			else
-				ft_error();
+				ft_error("duplicated NO");
 		}
 		i++;
 	}

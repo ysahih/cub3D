@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:17:01 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:20:39 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:52:05 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_f(t_data *info)
 		}
 		i++;
 	}
-	ft_error();
+	ft_error("need arguments");
 	return (NULL);
 }
 
@@ -44,8 +44,45 @@ char	*ft_c(t_data *info)
 		}
 		i++;
 	}
-	ft_error();
+	ft_error("need arguments");
 	return (NULL);
+}
+void	ft_f_one(t_data *info)
+{
+	int	check;
+	int	i;
+
+	check = 0;
+	i = 0;
+	while (info->map2d[i])
+	{
+		if (ft_strncmp(info->map2d[i], "F ", 2) == 0 && check == 0)
+		{
+			check = 1;
+		}
+		else if (ft_strncmp(info->map2d[i], "F ", 2) == 0 && check == 1)
+			ft_error("duplicated arguments");
+		i++;
+	}
+}
+
+void	ft_c_one(t_data *info)
+{
+	int	check;
+	int	i;
+
+	check = 0;
+	i = 0;
+	while (info->map2d[i])
+	{
+		if (ft_strncmp(info->map2d[i], "C ", 2) == 0 && check == 0)
+		{
+			check = 1;
+		}
+		else if (ft_strncmp(info->map2d[i], "C ", 2) == 0 && check == 1)
+			ft_error("duplicated arguments");
+		i++;
+	}
 }
 
 void	check_av(char *av)
@@ -59,7 +96,7 @@ void	check_av(char *av)
 	{
 		if (av[len - 1] != 'b' || av[len - 2] != 'u'
 			|| av[len - 3] != 'c' || av[len - 4] != '.')
-			ft_error();
+			ft_error("error extention");
 	}
 }
 
@@ -68,12 +105,12 @@ void	check_map(char *map)
 	int	i;
 
 	if (!map)
-		ft_error();
+		ft_error("empty");
 	i = 0;
 	while (map[i] && map[i] == '\n')
 		i++;
 	if (!map[i])
-		ft_error();
+		ft_error("empty");
 }
 
 void	ft_parsing(t_data *info)

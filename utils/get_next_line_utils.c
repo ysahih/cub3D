@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:33 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:37:45 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:55:47 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strjoin_one(char const *s1, char const *s2)
 		return (ft_strdup(s2));
 	to_return = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!to_return)
-		return (0);
+		ft_error("allocation failed");
 	while (s1[i] != '\0')
 	{
 		to_return[i] = s1[i];

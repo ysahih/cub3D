@@ -44,7 +44,7 @@ t_ray	*first_vehit(t_data *info, float angle)
 
 	ray = malloc(sizeof(t_ray));
 	if(!ray)
-		ft_error();
+		ft_error("allocation failed");
 	if (angle >= -M_PI / 2 && angle <= M_PI / 2)
 	{
 		x = floor(info->player_pos.x / SIZE) * SIZE + SIZE ;

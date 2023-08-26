@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:22 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:20:04 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:48:04 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_check_two(int i, int j, t_data *info, t_letters *letters)
 	if (info->map2d[i][j] == 'W')
 	{
 		if (letters->w == 1)
-			ft_error();
+			ft_error("duplicated arguments");
 		letters->w = 1;
 	}
 	else if (info->map2d[i][j] == '0')
@@ -29,7 +29,7 @@ void	ft_check_two(int i, int j, t_data *info, t_letters *letters)
 		letters->one = 1;
 	}
 	else if (info->map2d[i][j] != ' ')
-		ft_error();
+		ft_error("invalid map");
 }
 
 void	ft_check_one(int i, int j, t_data *info, t_letters *letters)
@@ -37,19 +37,19 @@ void	ft_check_one(int i, int j, t_data *info, t_letters *letters)
 	if (info->map2d[i][j] == 'N')
 	{
 		if (letters->n == 1)
-			ft_error();
+			ft_error("duplicated error arguments");
 		letters->n = 1;
 	}
 	else if (info->map2d[i][j] == 'S')
 	{
 		if (letters->s == 1)
-			ft_error();
+			ft_error("duplicated error arguments");
 		letters->s = 1;
 	}
 	else if (info->map2d[i][j] == 'E')
 	{
 		if (letters->e == 1)
-			ft_error();
+			ft_error("duplicated error arguments");
 		letters->e = 1;
 	}
 	else
@@ -87,7 +87,7 @@ void	ft_check_letters(t_data *info)
 	}
 	if (letters.e + letters.n + letters.one
 		+ letters.s + letters.w + letters.zero != 3)
-		ft_error();
+		ft_error("error arguments");
 	if (letters.one + letters.zero != 2)
-		ft_error();
+		ft_error("error arguments");
 }

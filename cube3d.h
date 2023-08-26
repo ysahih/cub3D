@@ -180,7 +180,7 @@ void 			ft_parsing_tmp(t_data *info);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *str);
 size_t			ft_len(char **s);
-void 			ft_error();
+void			ft_error(const char *str);
 void 			check_av(char *av);
 void 			check_map(char *map);
 char			**ft_split_one(const char *s, char c);
@@ -222,7 +222,9 @@ void 			check_map(char *map);
 void 			check_empty_line1(char **map2d1, int i, int first_line_index, int last_line_index);
 void 			check_empty_line(char **map2d1);
 void 			ft_parsing(t_data *info);
-bool	check_walls(t_data *info, int i, int j);
+bool			check_walls(t_data *info, int i, int j);
+void			ft_f_one(t_data *info);
+void			ft_c_one(t_data *info);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:20 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 14:19:01 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:46:16 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_check_character3(t_check *check)
 {
 	if (check->check[0] + check->check[1]
 		+ check->check[2] + check->check[3] != 4)
-		ft_error();
+		ft_error("invalid map");
 }
 
 void	ft_check_character2(t_data *info, int i, int j, t_check *check)

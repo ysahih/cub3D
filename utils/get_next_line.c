@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:35 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:37:48 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:54:19 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*ft_strs(char ***to_stock, char *line)
 	len = ft_slen(line);
 	new_line = malloc(len + 1);
 	if(!new_line)
-		ft_error();
+		ft_error("allocation failed");
 	**to_stock = ft_strdup(ft_strchr(line, '\n'));
 	while (i < len)
 	{
@@ -72,7 +72,7 @@ static char	*ft_read(char **to_stock, char *line, int fd)
 	count = 1;
 	buff = malloc(1 + 1);
 	if (!buff)
-		ft_error();
+		ft_error("allocation failed");
 	while (count > 0)
 	{
 		ft_bzero(buff, 1 + 1);

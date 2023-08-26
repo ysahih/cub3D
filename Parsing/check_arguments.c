@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:16:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:09:28 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:46:03 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	check_two_camas(char *str)
 	while (str[i])
 	{
 		if ((str[i] < '0' || str[i] > '9') && str[i] != ',')
-			ft_error();
+			ft_error("not number");
 		if (str[i] == ',')
 			count ++;
 		i++;
 	}
 	if (count != 2)
 	{
-		ft_error();
+		ft_error("not two camas");
 	}
 }
 
@@ -54,7 +54,7 @@ char	*second_coma(char *str)
 	while (str[i] && str[i] != ',')
 		i++;
 	if (str[i + 1] == '\0')
-		ft_error();
+		ft_error("cama");
 	return (&str[i + 1]);
 }
 
@@ -65,11 +65,13 @@ void	ft_check_rgb(char *str, char c, t_data *info)
 	int	b ;
 
 	check_two_camas(str);
+	if(str[0] == ',')
+		ft_error("cama");
 	r = ft_atoi(str);
 	g = ft_atoi(first_cama(str));
 	b = ft_atoi(second_coma(str));
 	if (r > 255 || r < 0 || g > 255 || g < 0 || b > 255 || b < 0)
-		ft_error();
+		ft_error("cama");
 	if (c == 'f')
 	{
 		info->sources.f_r = r;
@@ -99,6 +101,8 @@ void	check_arguments(t_data *info)
 	ft_ea_one(info);
 	f = ft_f(info);
 	c = ft_c(info);
+	ft_f_one(info);
+	ft_c_one(info);
 	ft_check_rgb(f, 'f', info);
 	ft_check_rgb(c, 'c', info);
 }

@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/25 15:56:19 by isbarka           #+#    #+#             */
-/*   Updated: 2023/08/25 18:37:31 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/08/26 14:55:19 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	**str_count(char **str, const char *s, char c)
 	if (!str)
 	{
 		free(str);
-		return (0);
+		ft_error("allocation failed");
 	}
 	str[i] = 0;
 	return (str);
@@ -68,7 +68,7 @@ static char	*ft_word(const char *s, char c)
 	if (!str)
 	{
 		free(str);
-		return (0);
+		ft_error("allocation failed");
 	}
 	ft_memcpy(str, s, len);
 	str[len] = '\0';
