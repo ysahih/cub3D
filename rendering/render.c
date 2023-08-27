@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:50:32 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/27 00:13:59 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 01:06:34 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void	rerender(void *inf)
 	int				x;
 
 	info = inf;
-	c_color = RGBA(info->sources.c_r,
+	c_color = rgba(info->sources.c_r,
 			info->sources.c_g, info->sources.c_b, 255);
-	f_color = RGBA(info->sources.f_r,
+	f_color = rgba(info->sources.f_r,
 			info->sources.f_g, info->sources.f_b, 255);
 	render_ceiling(info->mlx.image, c_color);
 	render_floor(info->mlx.image, f_color);

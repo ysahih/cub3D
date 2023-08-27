@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 17:53:20 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/27 00:15:41 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 01:09:25 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,13 @@ void	get_data(t_data *info)
 	info->width = ft_strlen(info->map2d[0]);
 }
 
-void	fun()
-{
-	system("leaks cub3D");
-}
-
 int	main(int ac, char **av)
 {
 	t_data	info;
 	char	**map;
-	atexit (fun);
+
+	if (ac != 2)
+		return (printf("bad arguments"), 0);
 	map = ft_read_map2d(av[1], &info);
 	open_window(&info, map);
 	ft_parsing(&info);

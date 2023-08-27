@@ -6,7 +6,7 @@
 /*   By: ysahih <ysahih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 18:14:02 by ysahih            #+#    #+#             */
-/*   Updated: 2023/08/27 00:16:53 by ysahih           ###   ########.fr       */
+/*   Updated: 2023/08/27 01:06:34 by ysahih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned int	get_color(mlx_image_t *image, int img_y, int img_x)
 	g = image->pixels[index + 1];
 	b = image->pixels[index + 2];
 	a = image->pixels[index + 3];
-	return (RGBA(r, g, b, a));
+	return (rgba(r, g, b, a));
 }
 
 float	image_offset(mlx_image_t *image, t_ray *ray)
